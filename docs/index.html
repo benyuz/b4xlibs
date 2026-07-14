@@ -10,41 +10,45 @@
     <header class="site-header">
         <div class="header-top">
             <div class="logo"><img src="Logo_white.png" alt="B4X" height="40"></div>
-            <button class="lang-btn" id="langBtn" onclick="toggleLanguage()">中文</button>
+            <div class="lang-selector">
+                <select id="langSelect" onchange="changeLanguage(this.value)">
+                    <option value="zh-CN">中文</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
         </div>
         <h1 id="pageTitle">📚 B4X 资料库导航</h1>
         <p class="subtitle" id="pageSubtitle">聚合官方与社区维护的 B4X 库资源，一站式检索与浏览</p>
     </header>
 
     <main class="container">
-        <section class="stats-section">
-            <div class="stats-grid" id="statsContainer">
-                <div class="stat-card"><span class="number" id="statTotal">--</span> <span id="labelTotal">总库数</span></div>
-                <div class="stat-card"><span class="number" id="statOfficial">--</span> <span id="labelOfficial">官方库</span></div>
-                <div class="stat-card"><span class="number" id="statCommunity">--</span> <span id="labelCommunity">社区库</span></div>
-                <div class="stat-card"><span class="number" id="statAuthors">--</span> <span id="labelAuthors">作者数</span></div>
-            </div>
-            <p class="update-info" id="updateInfo">📅 数据最后更新：<span id="updateTime">加载中...</span></p>
-        </section>
-
-        <section class="ranking-section">
-            <h2 id="rankingTitle">🏆 贡献者排行榜</h2>
-            <div id="rankingList" class="ranking-list"><div class="loading" id="rankingLoading">加载中...</div></div>
-        </section>
-
         <section class="entry-section">
             <div class="entry-grid">
                 <a href="official.html" class="entry-card official">
+                    <span class="entry-number" id="statOfficial">--</span>
                     <h3 id="officialTitle">📚 官方库</h3>
                     <p id="officialDesc">由 Erel 维护的权威 B4X 库列表</p>
-                    <span class="entry-badge" id="badgeOfficial">加载中...</span>
+                    <span class="entry-link" id="officialLink">→ 浏览全部</span>
                 </a>
                 <a href="community.html" class="entry-card community">
-                    <h3 id="communityTitle">🧩 社区库</h3>
+                    <span class="entry-number" id="statCommunity">--</span>
+                    <h3 id="communityTitle">🧩 社区资源</h3>
                     <p id="communityDesc">由社区爱好者维护的扩展库列表</p>
-                    <span class="entry-badge" id="badgeCommunity">加载中...</span>
+                    <span class="entry-link" id="communityLink">→ 浏览全部</span>
                 </a>
             </div>
+        </section>
+
+        <section class="ranking-section">
+            <div class="ranking-header">
+                <h2 id="rankingTitle">🏆 贡献者排行榜</h2>
+                <div class="ranking-stats">
+                    <span class="ranking-stat"><span class="stat-icon">📦</span> <span id="statTotal">--</span></span>
+                    <span class="ranking-stat"><span class="stat-icon">👤</span> <span id="statAuthors">--</span></span>
+                    <span class="ranking-stat"><span class="stat-icon">🔄</span> <span id="updateTime">--</span></span>
+                </div>
+            </div>
+            <div id="rankingList" class="ranking-list"><div class="loading" id="rankingLoading">加载中...</div></div>
         </section>
 
         <section class="links-section">
@@ -89,25 +93,19 @@
     const t = Locale.getLocale(lang);
 
     function applyLocale() {
-        document.getElementById('langBtn').textContent = t.language[lang === 'zh-CN' ? 'en' : 'zh'];
-        
+        document.getElementById('langSelect').value = lang;
         document.getElementById('pageTitle').textContent = t.header.title;
         document.getElementById('pageSubtitle').textContent = t.header.subtitle;
         
-        document.getElementById('labelTotal').textContent = t.stats.total;
-        document.getElementById('labelOfficial').textContent = t.stats.official;
-        document.getElementById('labelCommunity').textContent = t.stats.community;
-        document.getElementById('labelAuthors').textContent = t.stats.authors;
-        
-        document.getElementById('updateInfo').innerHTML = t.stats.update + '<span id="updateTime">加载中...</span>';
+        document.getElementById('officialTitle').textContent = t.entry.officialTitle;
+        document.getElementById('officialDesc').textContent = t.entry.officialDesc;
+        document.getElementById('officialLink').textContent = t.entry.viewAll;
+        document.getElementById('communityTitle').textContent = t.entry.communityTitle;
+        document.getElementById('communityDesc').textContent = t.entry.communityDesc;
+        document.getElementById('communityLink').textContent = t.entry.viewAll;
         
         document.getElementById('rankingTitle').textContent = t.ranking.title;
         document.getElementById('rankingLoading').textContent = t.ranking.loading;
-        
-        document.getElementById('officialTitle').textContent = t.entry.officialTitle;
-        document.getElementById('officialDesc').textContent = t.entry.officialDesc;
-        document.getElementById('communityTitle').textContent = t.entry.communityTitle;
-        document.getElementById('communityDesc').textContent = t.entry.communityDesc;
         
         document.getElementById('linksTitle').textContent = t.links.title;
         document.getElementById('linkB4X').textContent = t.links.b4x;
@@ -123,8 +121,7 @@
         document.documentElement.lang = lang;
     }
 
-    function toggleLanguage() {
-        const newLang = lang === 'zh-CN' ? 'en' : 'zh-CN';
+    function changeLanguage(newLang) {
         Locale.setLanguage(newLang);
     }
 
@@ -136,13 +133,11 @@
             return res.json();
         })
         .then(stats => {
-            document.getElementById('statTotal').textContent = stats.total_libraries || 0;
             document.getElementById('statOfficial').textContent = stats.official_count || 0;
             document.getElementById('statCommunity').textContent = stats.community_count || 0;
+            document.getElementById('statTotal').textContent = stats.total_libraries || 0;
             document.getElementById('statAuthors').textContent = stats.authors?.total || 0;
             document.getElementById('updateTime').textContent = stats.last_update || '未知';
-            document.getElementById('badgeOfficial').textContent = (stats.official_count || 0) + (t.ranking.count || ' 个库');
-            document.getElementById('badgeCommunity').textContent = (stats.community_count || 0) + (t.ranking.count || ' 个库');
             
             const ranking = stats.authors?.ranking || {};
             const entries = Object.entries(ranking);
@@ -160,8 +155,7 @@
         })
         .catch(err => {
             console.error('加载统计失败:', err);
-            document.getElementById('statsContainer').innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#e53e3e;padding:20px;">⚠️ ' + t.empty.failed + '</div>';
-            document.getElementById('updateTime').textContent = t.empty.failed;
+            document.getElementById('rankingList').innerHTML = '<div style="text-align:center;color:#e53e3e;padding:20px;">⚠️ ' + t.empty.failed + '</div>';
         });
     </script>
 </body>

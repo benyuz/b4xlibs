@@ -25,8 +25,9 @@ const locales = {
         entry: {
             officialTitle: '📚 官方库',
             officialDesc: '由 Erel 维护的权威 B4X 库列表',
-            communityTitle: '🧩 社区库',
-            communityDesc: '由社区爱好者维护的扩展库列表'
+            communityTitle: '🧩 社区资源',
+            communityDesc: '由社区爱好者维护的扩展库列表',
+            viewAll: '→ 浏览全部'
         },
         links: {
             title: '🔗 官方资源',
@@ -91,8 +92,9 @@ const locales = {
         entry: {
             officialTitle: '📚 Official Libraries',
             officialDesc: 'Authoritative B4X libraries maintained by Erel',
-            communityTitle: '🧩 Community Libraries',
-            communityDesc: 'Extended libraries maintained by community enthusiasts'
+            communityTitle: '🧩 Community Resources',
+            communityDesc: 'Extended libraries maintained by community enthusiasts',
+            viewAll: '→ View All'
         },
         links: {
             title: '🔗 Official Resources',
