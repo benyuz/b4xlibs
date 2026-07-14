@@ -1,7 +1,20 @@
 <?php
 $htmlUrl = 'https://www.dropbox.com/s/4punyxbwek8oc8o/b4xgoodies.html?dl=1';
 
-$html = file_get_contents($htmlUrl);
+$ctx = stream_context_create([
+    'http' => [
+        'user_agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'follow_location' => true,
+        'max_redirects' => 5,
+        'timeout' => 30
+    ],
+    'ssl' => [
+        'verify_peer' => false,
+        'verify_peer_name' => false
+    ]
+]);
+
+$html = file_get_contents($htmlUrl, false, $ctx);
 if ($html === false) {
     file_put_contents('php://stderr', "❌ 抓取社区库HTML失败\n");
     exit(1);

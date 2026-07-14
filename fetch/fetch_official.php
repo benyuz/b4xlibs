@@ -1,7 +1,20 @@
 <?php
 $csvUrl = 'https://docs.google.com/spreadsheets/d/1qFvc3Q70RriJS3m_ywBoJvZ47gSTVAuN_X04SI0_XBw/export?format=csv&gid=0';
 
-$csv = file_get_contents($csvUrl);
+$ctx = stream_context_create([
+    'http' => [
+        'user_agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'follow_location' => true,
+        'max_redirects' => 5,
+        'timeout' => 30
+    ],
+    'ssl' => [
+        'verify_peer' => false,
+        'verify_peer_name' => false
+    ]
+]);
+
+$csv = file_get_contents($csvUrl, false, $ctx);
 if ($csv === false) {
     file_put_contents('php://stderr', "❌ 抓取官方库CSV失败\n");
     exit(1);

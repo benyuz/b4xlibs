@@ -28,12 +28,15 @@ jobs:
 
       - name: 抓取官方库
         run: php fetch/fetch_official.php
+        continue-on-error: true
 
       - name: 抓取社区库
         run: php fetch/fetch_community.php
+        continue-on-error: true
 
       - name: 生成统计
         run: php fetch/generate_stats.php
+        continue-on-error: true
 
       - name: 调试 - 查找文件位置
         run: |
