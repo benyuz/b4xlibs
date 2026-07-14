@@ -9,6 +9,10 @@ a:hover { text-decoration:underline; }
 .site-header h1 { font-size:28px; font-weight:700; letter-spacing:-0.5px; }
 .site-header .subtitle { color:#a0aec0; font-size:15px; margin-top:4px; }
 
+.header-right { display:flex; align-items:center; gap:14px; }
+.github-link { color:#a0aec0; transition:color .2s; }
+.github-link:hover { color:#fff; }
+
 .lang-selector select { padding:6px 12px; border:1px solid rgba(255,255,255,0.2); border-radius:8px; background:rgba(255,255,255,0.1); color:#fff; font-size:13px; cursor:pointer; outline:none; appearance:none; min-width:80px; text-align:center; }
 .lang-selector select:hover { background:rgba(255,255,255,0.15); }
 .lang-selector select option { background:#1a1a2e; color:#fff; }

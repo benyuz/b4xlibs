@@ -1,7 +1,7 @@
 const locales = {
     'zh-CN': {
         header: {
-            title: 'B4X 资料库导航',
+            title: 'B4X 资源导航',
             subtitle: '聚合官方与社区维护的 B4X 库资源，一站式检索与浏览'
         },
         nav: {
@@ -68,7 +68,7 @@ const locales = {
     },
     'en': {
         header: {
-            title: 'B4X Library Navigator',
+            title: 'B4X Resource Navigator',
             subtitle: 'Aggregate official and community B4X library resources for one-stop browsing'
         },
         nav: {
