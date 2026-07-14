@@ -7,11 +7,11 @@ file_put_contents('php://stderr', "📁 当前工作目录: " . getcwd() . "\n")
 $official = [];
 $community = [];
 
-if (file_exists($dataDir . 'official.json')) {
-    $official = json_decode(file_get_contents($dataDir . 'official.json'), true) ?: [];
+if (file_exists($outputDir . 'official.json')) {
+    $official = json_decode(file_get_contents($outputDir . 'official.json'), true) ?: [];
 }
-if (file_exists($dataDir . 'community.json')) {
-    $community = json_decode(file_get_contents($dataDir . 'community.json'), true) ?: [];
+if (file_exists($outputDir . 'community.json')) {
+    $community = json_decode(file_get_contents($outputDir . 'community.json'), true) ?: [];
 }
 
 $allLibraries = array_merge($official, $community);
@@ -38,6 +38,6 @@ if (count($allLibraries) === 0) {
     file_put_contents('php://stderr', "⚠️ 没有数据文件，生成空统计\n");
 }
 
-file_put_contents($dataDir . 'stats.json', json_encode($stats, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+file_put_contents($outputDir . 'stats.json', json_encode($stats, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
 file_put_contents('php://stderr', "✅ 统计信息生成成功，总库数: " . $stats['total_libraries'] . "\n");
 ?>
