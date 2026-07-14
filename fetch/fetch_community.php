@@ -54,7 +54,7 @@ if (count($libraries) < 10) {
 }
 
 $json = json_encode($libraries, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-$outputDir = __DIR__ . '/../site/data/';
+$outputDir = __DIR__ . '/../docs/data/';
 if (!is_dir($outputDir)) mkdir($outputDir, 0755, true);
 
 file_put_contents($outputDir . 'community.json', $json);

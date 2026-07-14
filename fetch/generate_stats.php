@@ -1,5 +1,5 @@
 <?php
-$dataDir = __DIR__ . '/../site/data/';
+$dataDir = __DIR__ . '/../docs/data/';
 
 $official = [];
 $community = [];

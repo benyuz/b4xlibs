@@ -14,21 +14,21 @@
 
 ## 本地开发
 ```bash
-cd site
+cd docs
 python3 -m http.server 8000
 # 访问 http://localhost:8000
 ```
 
 ## 部署
 1. 推送代码到GitHub仓库
-2. 在 Settings → Pages 中设置发布源为 `main` 分支的 `/site` 文件夹
+2. 在 Settings → Pages 中设置发布源为 `main` 分支的 `/docs` 文件夹
 3. 手动触发Actions工作流生成数据
 
 ## 目录结构
 ```
 ├── .github/workflows/   # GitHub Actions
 ├── fetch/               # PHP抓取脚本
-├── site/                # 网站根目录
+├── docs/                # 网站根目录（GitHub Pages）
 │   ├── css/             # 样式
 │   ├── js/              # 前端JS
 │   ├── data/            # JSON数据（由PHP生成）
