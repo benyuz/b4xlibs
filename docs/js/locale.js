@@ -66,11 +66,6 @@ const locales = {
         language: {
             zh: '中文',
             en: 'English'
-        },
-        theme: {
-            light: '☀️ 浅色',
-            dark: '🌙 深色',
-            b4x: '💎 B4X'
         }
     },
     'en': {
@@ -140,11 +135,6 @@ const locales = {
         language: {
             zh: '中文',
             en: 'English'
-        },
-        theme: {
-            light: '☀️ Light',
-            dark: '🌙 Dark',
-            b4x: '💎 B4X'
         }
     }
 };
@@ -168,29 +158,9 @@ function setLanguage(lang) {
     }
 }
 
-function detectTheme() {
-    const stored = localStorage.getItem('b4x-theme');
-    if (stored && ['light', 'dark', 'b4x'].includes(stored)) return stored;
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        return 'dark';
-    }
-    return 'light';
-}
-
-function setTheme(theme) {
-    if (['light', 'dark', 'b4x'].includes(theme)) {
-        localStorage.setItem('b4x-theme', theme);
-        document.documentElement.setAttribute('data-theme', theme);
-        const select = document.getElementById('themeSelect');
-        if (select) select.value = theme;
-    }
-}
-
 window.Locale = {
     locales: locales,
     getLocale: getLocale,
     detectLanguage: detectLanguage,
-    setLanguage: setLanguage,
-    detectTheme: detectTheme,
-    setTheme: setTheme
+    setLanguage: setLanguage
 };

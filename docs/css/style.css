@@ -203,13 +203,6 @@ a:hover { text-decoration:underline; }
 .github-link { color:var(--header-subtitle); transition:all .25s; display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:var(--radius-sm); background:rgba(255,255,255,0.05); }
 .github-link:hover { color:var(--header-text); background:rgba(255,255,255,0.12); transform:scale(1.05); }
 
-.theme-selector { position:relative; }
-.theme-selector select { padding:8px 36px 8px 14px; border:1px solid rgba(255,255,255,0.15); border-radius:var(--radius-sm); background:rgba(255,255,255,0.08); color:var(--header-text); font-size:13px; font-weight:500; cursor:pointer; outline:none; appearance:none; min-width:100px; transition:all .25s; }
-.theme-selector select:hover { background:rgba(255,255,255,0.14); border-color:rgba(255,255,255,0.25); }
-.theme-selector select:focus { background:rgba(255,255,255,0.12); border-color:#667eea; box-shadow:0 0 0 3px rgba(102,126,234,0.2); }
-.theme-selector select option { background:#1a1a2e; color:#fff; padding:8px 12px; }
-.theme-selector::after { content:'▼'; position:absolute; right:12px; top:50%; transform:translateY(-50%); color:var(--header-subtitle); font-size:10px; pointer-events:none; }
-
 .lang-selector { position:relative; }
 .lang-selector select { padding:8px 36px 8px 14px; border:1px solid rgba(255,255,255,0.15); border-radius:var(--radius-sm); background:rgba(255,255,255,0.08); color:var(--header-text); font-size:13px; font-weight:500; cursor:pointer; outline:none; appearance:none; min-width:90px; transition:all .25s; }
 .lang-selector select:hover { background:rgba(255,255,255,0.14); border-color:rgba(255,255,255,0.25); }
