@@ -2,7 +2,8 @@ const locales = {
     'zh-CN': {
         header: {
             title: 'B4X 资源导航',
-            subtitle: '聚合官方与社区维护的 B4X 库资源，一站式检索与浏览'
+            subtitle: '聚合官方与社区维护的 B4X 库资源，一站式检索与浏览',
+            pageTitle: 'B4X Resource Navigator'
         },
         nav: {
             home: '🏠 首页',
@@ -26,7 +27,7 @@ const locales = {
             officialTitle: '📚 官方库',
             officialDesc: '由 Erel 维护的权威 B4X 库列表',
             communityTitle: '🧩 社区资源',
-            communityDesc: '由社区爱好者维护的扩展库列表',
+            communityDesc: '由社区爱好者维护的资源列表',
             viewAll: '→ 浏览全部'
         },
         links: {
@@ -59,17 +60,24 @@ const locales = {
         },
         footer: {
             credit: '♥ B4X 由 Erel 创建 · 数据每日自动更新',
+            update: '🔄 更新时间：',
             github: 'GitHub 仓库'
         },
         language: {
             zh: '中文',
             en: 'English'
+        },
+        theme: {
+            light: '☀️ 浅色',
+            dark: '🌙 深色',
+            b4x: '💎 B4X'
         }
     },
     'en': {
         header: {
             title: 'B4X Resource Navigator',
-            subtitle: 'Aggregate official and community B4X library resources for one-stop browsing'
+            subtitle: 'Aggregate official and community B4X library resources for one-stop browsing',
+            pageTitle: 'B4X Resource Navigator'
         },
         nav: {
             home: '🏠 Home',
@@ -93,7 +101,7 @@ const locales = {
             officialTitle: '📚 Official Libraries',
             officialDesc: 'Authoritative B4X libraries maintained by Erel',
             communityTitle: '🧩 Community Resources',
-            communityDesc: 'Extended libraries maintained by community enthusiasts',
+            communityDesc: 'Resources maintained by community enthusiasts',
             viewAll: '→ View All'
         },
         links: {
@@ -126,11 +134,17 @@ const locales = {
         },
         footer: {
             credit: '♥ B4X created by Erel · Data updated daily',
+            update: '🔄 Last Updated: ',
             github: 'GitHub Repository'
         },
         language: {
             zh: '中文',
             en: 'English'
+        },
+        theme: {
+            light: '☀️ Light',
+            dark: '🌙 Dark',
+            b4x: '💎 B4X'
         }
     }
 };
@@ -154,9 +168,29 @@ function setLanguage(lang) {
     }
 }
 
+function detectTheme() {
+    const stored = localStorage.getItem('b4x-theme');
+    if (stored && ['light', 'dark', 'b4x'].includes(stored)) return stored;
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return 'dark';
+    }
+    return 'light';
+}
+
+function setTheme(theme) {
+    if (['light', 'dark', 'b4x'].includes(theme)) {
+        localStorage.setItem('b4x-theme', theme);
+        document.documentElement.setAttribute('data-theme', theme);
+        const select = document.getElementById('themeSelect');
+        if (select) select.value = theme;
+    }
+}
+
 window.Locale = {
     locales: locales,
     getLocale: getLocale,
     detectLanguage: detectLanguage,
-    setLanguage: setLanguage
+    setLanguage: setLanguage,
+    detectTheme: detectTheme,
+    setTheme: setTheme
 };

@@ -8,12 +8,23 @@
 </head>
 <body>
     <header class="site-header">
-        <div class="header-top">
-            <div class="logo"><img src="Logo_white.png" alt="B4X" height="40"></div>
+        <div class="header-content">
+            <a href="https://www.b4x.com" target="_blank" rel="noopener" class="logo" title="B4X Official Site"><img src="Logo_white.png" alt="B4X" height="40"></a>
+            <div class="header-center">
+                <h1 id="pageTitle">📚 B4X 资源导航</h1>
+                <p class="subtitle" id="pageSubtitle">聚合官方与社区维护的 B4X 库资源，一站式检索与浏览</p>
+            </div>
             <div class="header-right">
                 <a href="https://github.com/benyuz/b4xlibs" target="_blank" rel="noopener" class="github-link" title="GitHub">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                 </a>
+                <div class="theme-selector">
+                    <select id="themeSelect" onchange="changeTheme(this.value)">
+                        <option value="light">☀️ Light</option>
+                        <option value="dark">🌙 Dark</option>
+                        <option value="b4x">💎 B4X</option>
+                    </select>
+                </div>
                 <div class="lang-selector">
                     <select id="langSelect" onchange="changeLanguage(this.value)">
                         <option value="zh-CN">中文</option>
@@ -22,8 +33,6 @@
                 </div>
             </div>
         </div>
-        <h1 id="pageTitle">📚 B4X 资源导航</h1>
-        <p class="subtitle" id="pageSubtitle">聚合官方与社区维护的 B4X 库资源，一站式检索与浏览</p>
     </header>
 
     <main class="container">
@@ -50,45 +59,15 @@
                 <div class="ranking-stats">
                     <span class="ranking-stat"><span class="stat-icon">📦</span> <span id="statTotal">--</span></span>
                     <span class="ranking-stat"><span class="stat-icon">👤</span> <span id="statAuthors">--</span></span>
-                    <span class="ranking-stat"><span class="stat-icon">🔄</span> <span id="updateTime">--</span></span>
                 </div>
             </div>
             <div id="rankingList" class="ranking-list"><div class="loading" id="rankingLoading">加载中...</div></div>
-        </section>
-
-        <section class="links-section">
-            <h2 id="linksTitle">🔗 官方资源</h2>
-            <div class="links-grid">
-                <a href="https://www.b4x.com" target="_blank" rel="noopener" class="link-card">
-                    <span class="link-icon">🌐</span>
-                    <span class="link-text" id="linkB4X">B4X 官网</span>
-                </a>
-                <a href="https://www.b4x.com/b4a.html" target="_blank" rel="noopener" class="link-card">
-                    <span class="link-icon">🤖</span>
-                    <span class="link-text" id="linkB4A">B4A (Android)</span>
-                </a>
-                <a href="https://www.b4x.com/b4i.html" target="_blank" rel="noopener" class="link-card">
-                    <span class="link-icon">🍎</span>
-                    <span class="link-text" id="linkB4I">B4I (iOS)</span>
-                </a>
-                <a href="https://www.b4x.com/b4j.html" target="_blank" rel="noopener" class="link-card">
-                    <span class="link-icon">🖥️</span>
-                    <span class="link-text" id="linkB4J">B4J (JavaFX)</span>
-                </a>
-                <a href="https://www.b4x.com/b4r.html" target="_blank" rel="noopener" class="link-card">
-                    <span class="link-icon">🔌</span>
-                    <span class="link-text" id="linkB4R">B4R (IoT)</span>
-                </a>
-                <a href="https://www.b4x.com/android/forum/" target="_blank" rel="noopener" class="link-card">
-                    <span class="link-icon">💬</span>
-                    <span class="link-text" id="linkForum">B4X 论坛</span>
-                </a>
-            </div>
         </section>
     </main>
 
     <footer class="site-footer">
         <p id="footerCredit">♥ B4X 由 Erel 创建 · 数据每日自动更新</p>
+        <p id="footerUpdate">🔄 更新时间：<span id="updateTime">--</span></p>
         <p><a href="https://github.com/benyuz/b4xlibs" id="footerGitHub">GitHub 仓库</a></p>
     </footer>
 
@@ -99,6 +78,7 @@
 
     function applyLocale() {
         document.getElementById('langSelect').value = lang;
+        document.title = t.header.pageTitle;
         document.getElementById('pageTitle').textContent = t.header.title;
         document.getElementById('pageSubtitle').textContent = t.header.subtitle;
         
@@ -112,15 +92,8 @@
         document.getElementById('rankingTitle').textContent = t.ranking.title;
         document.getElementById('rankingLoading').textContent = t.ranking.loading;
         
-        document.getElementById('linksTitle').textContent = t.links.title;
-        document.getElementById('linkB4X').textContent = t.links.b4x;
-        document.getElementById('linkB4A').textContent = t.links.b4a;
-        document.getElementById('linkB4I').textContent = t.links.b4i;
-        document.getElementById('linkB4J').textContent = t.links.b4j;
-        document.getElementById('linkB4R').textContent = t.links.b4r;
-        document.getElementById('linkForum').textContent = t.links.forum;
-        
         document.getElementById('footerCredit').textContent = t.footer.credit;
+        document.getElementById('footerUpdate').textContent = t.footer.update;
         document.getElementById('footerGitHub').textContent = t.footer.github;
         
         document.documentElement.lang = lang;
@@ -130,7 +103,26 @@
         Locale.setLanguage(newLang);
     }
 
+    function applyTheme() {
+        const theme = Locale.detectTheme();
+        Locale.setTheme(theme);
+        document.getElementById('themeSelect').value = theme;
+        const t = Locale.getLocale(lang);
+        const themeSelect = document.getElementById('themeSelect');
+        if (themeSelect) {
+            const options = themeSelect.options;
+            options[0].text = t.theme.light;
+            options[1].text = t.theme.dark;
+            options[2].text = t.theme.b4x;
+        }
+    }
+
+    function changeTheme(newTheme) {
+        Locale.setTheme(newTheme);
+    }
+
     applyLocale();
+    applyTheme();
 
     fetch('data/stats.json')
         .then(res => {
