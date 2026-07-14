@@ -1,19 +1,7 @@
-async function loadGzippedJSON(url) {
+async function loadJSON(url) {
     try {
         const response = await fetch(url);
         if (!response.ok) throw new Error('HTTP ' + response.status);
-        
-        if (url.endsWith('.gz')) {
-            try {
-                const ds = new DecompressionStream('gzip');
-                const stream = response.body.pipeThrough(ds);
-                return await new Response(stream).json();
-            } catch (e) {
-                const fallbackUrl = url.replace('.gz', '');
-                const resp = await fetch(fallbackUrl);
-                return await resp.json();
-            }
-        }
         return await response.json();
     } catch (error) {
         console.error('加载数据失败:', error);
@@ -151,7 +139,7 @@ function renderPagination(pagination, containerId, onPageChange, locale) {
 }
 
 window.B4XLib = {
-    loadGzippedJSON: loadGzippedJSON,
+    loadJSON: loadJSON,
     getUrlParams: getUrlParams,
     parseDate: parseDate,
     sortByDate: sortByDate,

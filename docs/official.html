@@ -140,7 +140,7 @@
     async function loadData() {
         const container = document.getElementById('libraryList');
         container.innerHTML = '<div class="loading">' + t.empty.loading + '</div>';
-        const data = await B4XLib.loadGzippedJSON('data/official.json.gz');
+        const data = await B4XLib.loadJSON('data/official.json');
         if (!data || data.length === 0) {
             container.innerHTML = '<div class="empty">' + t.empty.noData + '</div>';
             return;
