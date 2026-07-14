@@ -32,6 +32,14 @@ libxml_clear_errors();
 $xpath = new DOMXPath($dom);
 $tableRows = $xpath->query('//table/tr');
 
+function extractCellText($dom, $cell) {
+    $html = $dom->saveHTML($cell);
+    $html = preg_replace('/<img[^>]*alt=["\']([^"\']*)["\'][^>]*>/i', '$1', $html);
+    $text = strip_tags($html);
+    $text = html_entity_decode($text, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    return trim($text);
+}
+
 $libraries = [];
 for ($i = 3; $i < $tableRows->length; $i++) {
     $row = $tableRows->item($i);
@@ -40,7 +48,7 @@ for ($i = 3; $i < $tableRows->length; $i++) {
     
     $data = [];
     foreach ($cells as $cell) {
-        $data[] = trim($cell->textContent);
+        $data[] = extractCellText($dom, $cell);
     }
     
     if (empty($data[3])) continue;

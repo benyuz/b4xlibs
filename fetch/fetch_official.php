@@ -34,8 +34,8 @@ foreach ($lines as $line) {
     if ($data[0] === 'Library Name') continue;
     
     $lib = [
-        'name' => trim($data[0] ?? ''),
-        'desc' => trim($data[1] ?? ''),
+        'name' => trim(html_entity_decode($data[0] ?? '', ENT_QUOTES | ENT_HTML5, 'UTF-8')),
+        'desc' => trim(html_entity_decode($data[1] ?? '', ENT_QUOTES | ENT_HTML5, 'UTF-8')),
         'b4a' => trim($data[2] ?? ''),
         'b4i' => trim($data[3] ?? ''),
         'b4j' => trim($data[4] ?? ''),
@@ -66,9 +66,6 @@ if (count($libraries) < 10) {
 
 $json = json_encode($libraries, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 $outputDir = __DIR__ . '/../docs/data/';
-file_put_contents('php://stderr', "📁 输出目录: " . $outputDir . "\n");
-file_put_contents('php://stderr', "📁 脚本目录: " . __DIR__ . "\n");
-file_put_contents('php://stderr', "📁 当前工作目录: " . getcwd() . "\n");   
 if (!is_dir($outputDir)) mkdir($outputDir, 0755, true);
 
 file_put_contents($outputDir . 'official.json', $json);
