@@ -65,6 +65,8 @@ a:hover { text-decoration:underline; }
 .card-desc { font-size:14px; color:#4a5568; margin:4px 0 8px; padding-left:12px; border-left:3px solid #e2e8f0; }
 .card-footer { font-size:13px; color:#718096; display:flex; flex-wrap:wrap; gap:4px 16px; }
 .card-footer .card-author { color:#2b6cb0; }
+.card-author-link { color:#2b6cb0; text-decoration:none; font-weight:500; }
+.card-author-link:hover { text-decoration:underline; }
 
 .site-footer { text-align:center; padding:20px; color:#718096; font-size:14px; border-top:1px solid #e2e8f0; margin-top:20px; }
 .site-footer a { color:#2b6cb0; }
@@ -81,6 +83,14 @@ a:hover { text-decoration:underline; }
 .page-btn.disabled { opacity:0.4; cursor:not-allowed; }
 .page-ellipsis { padding:0 8px; color:#718096; font-size:14px; }
 .page-info { margin-left:12px; padding-left:12px; border-left:1px solid #e2e8f0; color:#718096; font-size:14px; }
+
+.links-section { background:#fff; border-radius:12px; padding:24px; margin-bottom:24px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+.links-section h2 { font-size:18px; margin-bottom:16px; color:#1a1a2e; }
+.links-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; }
+.link-card { display:flex; align-items:center; gap:10px; padding:12px 16px; background:#f7fafc; border-radius:8px; text-decoration:none; color:#4a5568; transition:all .2s; border:1px solid transparent; }
+.link-card:hover { background:#edf2f7; border-color:#cbd5e0; color:#2b6cb0; }
+.link-icon { font-size:18px; }
+.link-text { font-size:14px; font-weight:500; }
 
 @media (max-width:640px) {
     .site-header h1 { font-size:20px; }

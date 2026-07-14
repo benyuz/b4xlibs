@@ -89,7 +89,7 @@ function renderLibraries(libraries, containerId) {
         const link = lib.link || '#';
         const versionHtml = lib.version ? 'v' + lib.version : '';
         const dateHtml = lib.date || '';
-        const authorHtml = lib.author ? '@' + lib.author : '';
+        const authorHtml = lib.author ? `<a href="?keyword=${encodeURIComponent(lib.author)}" class="card-author-link">@${lib.author}</a>` : '';
         
         html += `
             <article class="library-card">
@@ -99,7 +99,7 @@ function renderLibraries(libraries, containerId) {
                 </div>
                 ${lib.desc ? `<blockquote class="card-desc">${lib.desc}</blockquote>` : ''}
                 <div class="card-footer">
-                    <span class="card-author">${authorHtml}</span>
+                    ${authorHtml}
                     ${dateHtml ? '· <span class="card-date">' + dateHtml + '</span>' : ''}
                     ${versionHtml ? '· <span class="card-version">' + versionHtml + '</span>' : ''}
                 </div>
