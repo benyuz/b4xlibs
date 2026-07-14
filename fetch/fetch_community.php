@@ -74,7 +74,6 @@ file_put_contents('php://stderr', "📁 当前工作目录: " . getcwd() . "\n")
 if (!is_dir($outputDir)) mkdir($outputDir, 0755, true);
 
 file_put_contents($outputDir . 'community.json', $json);
-file_put_contents($outputDir . 'community.json.gz', gzencode($json, 9));
 
 file_put_contents('php://stderr', "✅ 社区库更新成功，共 " . count($libraries) . " 条\n");
 ?>
