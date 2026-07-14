@@ -53,6 +53,9 @@ if (count($libraries) < 10) {
 
 $json = json_encode($libraries, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 $outputDir = __DIR__ . '/../docs/data/';
+file_put_contents('php://stderr', "📁 输出目录: " . $outputDir . "\n");
+file_put_contents('php://stderr', "📁 脚本目录: " . __DIR__ . "\n");
+file_put_contents('php://stderr', "📁 当前工作目录: " . getcwd() . "\n");   
 if (!is_dir($outputDir)) mkdir($outputDir, 0755, true);
 
 file_put_contents($outputDir . 'official.json', $json);

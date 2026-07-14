@@ -16,7 +16,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: main
-          # 确保有足够的提交历史用于推送
           fetch-depth: 0
 
       - name: 安装PHP
@@ -29,22 +28,40 @@ jobs:
 
       - name: 抓取官方库
         run: php fetch/fetch_official.php
-        continue-on-error: false
 
       - name: 抓取社区库
         run: php fetch/fetch_community.php
-        continue-on-error: false
 
       - name: 生成统计
         run: php fetch/generate_stats.php
-        continue-on-error: false
+
+      - name: 调试 - 查找文件位置
+        run: |
+          echo "=== 当前目录 ==="
+          pwd
+          echo ""
+          echo "=== 查找所有 data 目录 ==="
+          find . -type d -name "data" 2>/dev/null
+          echo ""
+          echo "=== 查找所有 .json 文件（排除 .git） ==="
+          find . -name "*.json" -not -path "*/.git/*" 2>/dev/null
+          echo ""
+          echo "=== 查找所有 .gz 文件（排除 .git） ==="
+          find . -name "*.gz" -not -path "*/.git/*" 2>/dev/null
+          echo ""
+          echo "=== docs/data/ 目录内容 ==="
+          ls -la docs/data/ 2>/dev/null || echo "docs/data/ 不存在"
+          echo ""
+          echo "=== 检查 .gitignore 是否忽略了这些文件 ==="
+          git check-ignore docs/data/official.json || echo "✅ official.json 未被忽略"
+          git check-ignore docs/data/community.json || echo "✅ community.json 未被忽略"
+          git check-ignore docs/data/stats.json || echo "✅ stats.json 未被忽略"
 
       - name: 检查并提交更新
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
-          # 检查是否有任何变更
           if git diff --quiet && git diff --cached --quiet; then
             echo "没有检测到变更，跳过提交"
           else
