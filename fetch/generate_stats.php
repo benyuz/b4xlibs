@@ -38,6 +38,24 @@ if (count($allLibraries) === 0) {
     file_put_contents('php://stderr', "⚠️ 没有数据文件，生成空统计\n");
 }
 
-file_put_contents($outputDir . 'stats.json', json_encode($stats, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-file_put_contents('php://stderr', "✅ 统计信息生成成功，总库数: " . $stats['total_libraries'] . "\n");
+$existingFile = $outputDir . 'stats.json';
+$needsUpdate = true;
+
+if (file_exists($existingFile)) {
+    $existingStats = json_decode(file_get_contents($existingFile), true) ?: [];
+    $existingData = $existingStats;
+    $newData = $stats;
+    unset($existingData['last_update'], $newData['last_update']);
+    
+    if (json_encode($existingData) === json_encode($newData)) {
+        $needsUpdate = false;
+    }
+}
+
+if ($needsUpdate) {
+    file_put_contents($existingFile, json_encode($stats, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+    file_put_contents('php://stderr', "✅ 统计信息生成成功，总库数: " . $stats['total_libraries'] . "\n");
+} else {
+    file_put_contents('php://stderr', "✅ 统计信息无变化，跳过写入\n");
+}
 ?>
