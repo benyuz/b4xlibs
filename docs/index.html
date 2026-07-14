@@ -166,7 +166,8 @@
         }
         list.innerHTML = entries.map(([author, count], index) => {
             const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : (index + 1) + '.';
-            return `<div class="ranking-item"><span class="rank">${medal}</span><span class="author">${author}</span><span class="count">${count}${t.ranking.count || ' 个库'}</span></div>`;
+            const authorUrl = 'https://www.b4x.com/android/forum/pages/results/?author=' + encodeURIComponent(author) + '&prefix=1%2C2%2C3%2C17%2C24%2C29';
+            return `<div class="ranking-item"><span class="rank">${medal}</span><a href="${authorUrl}" target="_blank" rel="noopener" class="author">${author}</a><span class="count">${count}${t.ranking.count || ' 个库'}</span></div>`;
         }).join('');
     }
 
@@ -198,7 +199,8 @@
                 let html = '';
                 top20.forEach(([author, count], index) => {
                     const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : (index + 1) + '.';
-                    html += `<div class="ranking-item"><span class="rank">${medal}</span><span class="author">${author}</span><span class="count">${count}${t.ranking.count || ' 个库'}</span></div>`;
+                    const authorUrl = 'https://www.b4x.com/android/forum/pages/results/?author=' + encodeURIComponent(author) + '&prefix=1%2C2%2C3%2C17%2C24%2C29';
+                    html += `<div class="ranking-item"><span class="rank">${medal}</span><a href="${authorUrl}" target="_blank" rel="noopener" class="author">${author}</a><span class="count">${count}${t.ranking.count || ' 个库'}</span></div>`;
                 });
                 rankingList.innerHTML = html;
             }

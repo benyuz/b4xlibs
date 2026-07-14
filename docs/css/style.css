@@ -248,6 +248,8 @@ a:hover { text-decoration:underline; }
 .ranking-item:hover { background:var(--border-light); transform:translateX(4px); }
 .ranking-item .rank { font-weight:800; min-width:36px; color:var(--text-secondary); font-size:16px; }
 .ranking-item .author { flex:1; font-weight:600; }
+.ranking-item a.author { color:var(--accent-primary); text-decoration:none; }
+.ranking-item a.author:hover { text-decoration:underline; }
 .ranking-item .count { color:var(--text-tertiary); font-size:13px; font-weight:500; }
 .ranking-list > :nth-child(1) { color:#fff; background:#f6740c; }
 .ranking-list > :nth-child(2) { color:#fff; background:#1b8bff; }
@@ -258,6 +260,9 @@ a:hover { text-decoration:underline; }
 .ranking-list > :nth-child(1) .author,
 .ranking-list > :nth-child(2) .author,
 .ranking-list > :nth-child(3) .author { color:#fff; }
+.ranking-list > :nth-child(1) a.author,
+.ranking-list > :nth-child(2) a.author,
+.ranking-list > :nth-child(3) a.author { color:#fff; }
 .ranking-list > :nth-child(1) .count,
 .ranking-list > :nth-child(2) .count,
 .ranking-list > :nth-child(3) .count { color:rgba(255,255,255,0.85); }
