@@ -1,0 +1,11 @@
+*.log
+error_log
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+site/data/*.json
+site/data/*.gz
+!site/data/.gitkeep

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B4X 资料库导航</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="logo"><img src="https://www.b4x.com/wp/wp-content/uploads/2016/07/Logo_white.png" alt="B4X" height="40"></div>
+        <h1>📚 B4X 资料库导航</h1>
+        <p class="subtitle">聚合官方与社区维护的 B4X 库资源，一站式检索与浏览</p>
+    </header>
+
+    <main class="container">
+        <section class="stats-section">
+            <div class="stats-grid" id="statsContainer">
+                <div class="stat-card"><span class="number" id="statTotal">--</span> 总库数</div>
+                <div class="stat-card"><span class="number" id="statOfficial">--</span> 官方库</div>
+                <div class="stat-card"><span class="number" id="statCommunity">--</span> 社区库</div>
+                <div class="stat-card"><span class="number" id="statAuthors">--</span> 作者数</div>
+            </div>
+            <p class="update-info">📅 数据最后更新：<span id="updateTime">加载中...</span></p>
+        </section>
+
+        <section class="ranking-section">
+            <h2>🏆 贡献者排行榜</h2>
+            <div id="rankingList" class="ranking-list"><div class="loading">加载中...</div></div>
+        </section>
+
+        <section class="entry-section">
+            <div class="entry-grid">
+                <a href="official.html" class="entry-card official">
+                    <h3>📚 官方库</h3>
+                    <p>由 Erel 维护的权威 B4X 库列表</p>
+                    <span class="entry-badge" id="badgeOfficial">加载中...</span>
+                </a>
+                <a href="community.html" class="entry-card community">
+                    <h3>🧩 社区库</h3>
+                    <p>由社区爱好者维护的扩展库列表</p>
+                    <span class="entry-badge" id="badgeCommunity">加载中...</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>♥ B4X 由 Erel 创建 · 数据每日自动更新</p>
+        <p><a href="https://github.com/你的用户名/你的仓库名">GitHub 仓库</a></p>
+    </footer>
+
+    <script>
+    fetch('data/stats.json')
+        .then(res => {
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            return res.json();
+        })
+        .then(stats => {
+            document.getElementById('statTotal').textContent = stats.total_libraries || 0;
+            document.getElementById('statOfficial').textContent = stats.official_count || 0;
+            document.getElementById('statCommunity').textContent = stats.community_count || 0;
+            document.getElementById('statAuthors').textContent = stats.authors?.total || 0;
+            document.getElementById('updateTime').textContent = stats.last_update || '未知';
+            document.getElementById('badgeOfficial').textContent = (stats.official_count || 0) + ' 个库';
+            document.getElementById('badgeCommunity').textContent = (stats.community_count || 0) + ' 个库';
+            
+            const ranking = stats.authors?.ranking || {};
+            const entries = Object.entries(ranking);
+            const rankingList = document.getElementById('rankingList');
+            if (entries.length === 0) {
+                rankingList.innerHTML = '<div>暂无数据</div>';
+            } else {
+                let html = '';
+                entries.forEach(([author, count], index) => {
+                    const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : (index + 1) + '.';
+                    html += `<div class="ranking-item"><span class="rank">${medal}</span><span class="author">${author}</span><span class="count">${count} 个库</span></div>`;
+                });
+                rankingList.innerHTML = html;
+            }
+        })
+        .catch(err => {
+            console.error('加载统计失败:', err);
+            document.getElementById('statsContainer').innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#e53e3e;padding:20px;">⚠️ 统计信息加载失败</div>';
+            document.getElementById('updateTime').textContent = '加载失败';
+        });
+    </script>
+</body>
+</html>
