@@ -3,46 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>社区库 - B4X 资料库</title>
+    <title>Community Libraries - B4X Library Navigator</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header class="site-header">
-        <div class="logo"><img src="Logo_white.png" alt="B4X" height="35"></div>
+        <div class="header-top">
+            <div class="logo"><img src="Logo_white.png" alt="B4X" height="35"></div>
+            <button class="lang-btn" id="langBtn" onclick="toggleLanguage()">中文</button>
+        </div>
         <nav class="main-nav">
-            <a href="index.html">🏠 首页</a>
-            <a href="official.html">📚 官方库</a>
-            <a href="community.html" class="active">🧩 社区库</a>
+            <a href="index.html" id="navHome">🏠 首页</a>
+            <a href="official.html" id="navOfficial">📚 官方库</a>
+            <a href="community.html" class="active" id="navCommunity">🧩 社区库</a>
         </nav>
     </header>
 
     <main class="container">
-        <h2>🧩 社区库</h2>
-        <p class="subtitle">由社区爱好者维护的 B4X 扩展库列表</p>
+        <h2 id="pageTitle">🧩 社区库</h2>
+        <p class="subtitle" id="pageSubtitle">由社区爱好者维护的 B4X 扩展库列表</p>
         
         <div class="filter-bar">
             <input type="text" id="searchInput" placeholder="🔍 搜索库名、描述或作者..." oninput="applyFilters()">
             <div class="filter-tags">
-                <button class="filter-btn active" data-platform="ALL" onclick="setPlatform('ALL')">全部</button>
-                <button class="filter-btn" data-platform="B4A" onclick="setPlatform('B4A')">B4A</button>
-                <button class="filter-btn" data-platform="B4I" onclick="setPlatform('B4I')">B4I</button>
-                <button class="filter-btn" data-platform="B4J" onclick="setPlatform('B4J')">B4J</button>
-                <button class="filter-btn" data-platform="B4R" onclick="setPlatform('B4R')">B4R</button>
+                <button class="filter-btn active" data-platform="ALL" onclick="setPlatform('ALL')" id="filterAll">全部</button>
+                <button class="filter-btn" data-platform="B4A" onclick="setPlatform('B4A')" id="filterB4A">B4A</button>
+                <button class="filter-btn" data-platform="B4I" onclick="setPlatform('B4I')" id="filterB4I">B4I</button>
+                <button class="filter-btn" data-platform="B4J" onclick="setPlatform('B4J')" id="filterB4J">B4J</button>
+                <button class="filter-btn" data-platform="B4R" onclick="setPlatform('B4R')" id="filterB4R">B4R</button>
             </div>
         </div>
         
-        <div id="libraryList" class="library-list"><div class="loading">⏳ 加载数据中...</div></div>
+        <div id="libraryList" class="library-list"><div class="loading" id="listLoading">⏳ 加载数据中...</div></div>
         <div id="pagination" class="pagination-container"></div>
     </main>
 
-    <footer class="site-footer"><p>♥ B4X 资料库 · 数据每日自动更新</p></footer>
+    <footer class="site-footer"><p id="footerCredit">♥ B4X 资料库 · 数据每日自动更新</p></footer>
 
+    <script src="js/locale.js"></script>
     <script src="js/b4x-library.js"></script>
     <script>
+    const lang = Locale.detectLanguage();
+    const t = Locale.getLocale(lang);
+    
     let allData = [];
     let currentPlatform = 'ALL';
     let currentPage = 1;
     const PAGE_SIZE = 20;
+
+    function applyLocale() {
+        document.getElementById('langBtn').textContent = t.language[lang === 'zh-CN' ? 'en' : 'zh'];
+        document.getElementById('navHome').textContent = t.nav.home;
+        document.getElementById('navOfficial').textContent = t.nav.official;
+        document.getElementById('navCommunity').textContent = t.nav.community;
+        document.getElementById('pageTitle').textContent = t.entry.communityTitle;
+        document.getElementById('pageSubtitle').textContent = t.entry.communityDesc;
+        document.getElementById('searchInput').placeholder = t.filter.placeholder;
+        document.getElementById('filterAll').textContent = t.filter.all;
+        document.getElementById('filterB4A').textContent = t.filter.b4a;
+        document.getElementById('filterB4I').textContent = t.filter.b4i;
+        document.getElementById('filterB4J').textContent = t.filter.b4j;
+        document.getElementById('filterB4R').textContent = t.filter.b4r;
+        document.getElementById('listLoading').textContent = t.empty.loading;
+        document.getElementById('footerCredit').textContent = t.footer.credit;
+        document.documentElement.lang = lang;
+    }
+
+    function toggleLanguage() {
+        const newLang = lang === 'zh-CN' ? 'en' : 'zh-CN';
+        Locale.setLanguage(newLang);
+    }
 
     function updateUrl() {
         const keyword = document.getElementById('searchInput').value.trim();
@@ -83,16 +113,16 @@
         const sorted = B4XLib.sortByDate(filtered, 'desc');
         const pagination = B4XLib.paginate(sorted, currentPage, PAGE_SIZE);
         
-        B4XLib.renderLibraries(pagination.data, 'libraryList');
-        B4XLib.renderPagination(pagination, 'pagination', goToPage);
+        B4XLib.renderLibraries(pagination.data, 'libraryList', t);
+        B4XLib.renderPagination(pagination, 'pagination', goToPage, t);
     }
 
     async function loadData() {
         const container = document.getElementById('libraryList');
-        container.innerHTML = '<div class="loading">⏳ 加载数据中...</div>';
+        container.innerHTML = '<div class="loading">' + t.empty.loading + '</div>';
         const data = await B4XLib.loadGzippedJSON('data/community.json.gz');
         if (!data || data.length === 0) {
-            container.innerHTML = '<div class="empty">暂无数据</div>';
+            container.innerHTML = '<div class="empty">' + t.empty.noData + '</div>';
             return;
         }
         allData = data;
@@ -105,6 +135,7 @@
         setPlatform(platform);
     }
 
+    applyLocale();
     document.addEventListener('DOMContentLoaded', loadData);
     </script>
 </body>

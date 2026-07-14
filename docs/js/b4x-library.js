@@ -75,11 +75,12 @@ function paginate(libraries, page, pageSize) {
     };
 }
 
-function renderLibraries(libraries, containerId) {
+function renderLibraries(libraries, containerId, locale) {
+    const t = locale?.filter || {};
     const container = document.getElementById(containerId);
     if (!container) return;
     if (!libraries || libraries.length === 0) {
-        container.innerHTML = '<div style="text-align:center;padding:40px;color:#999;">📭 没有找到匹配的库</div>';
+        container.innerHTML = '<div style="text-align:center;padding:40px;color:#999;">' + (t.noMatch || '📭 没有找到匹配的库') + '</div>';
         return;
     }
     
@@ -109,7 +110,8 @@ function renderLibraries(libraries, containerId) {
     container.innerHTML = html;
 }
 
-function renderPagination(pagination, containerId, onPageChange) {
+function renderPagination(pagination, containerId, onPageChange, locale) {
+    const t = locale?.pagination || {};
     const container = document.getElementById(containerId);
     if (!container) return;
     if (pagination.totalPages <= 1) {
@@ -120,7 +122,7 @@ function renderPagination(pagination, containerId, onPageChange) {
     const { page, totalPages } = pagination;
     let html = `<div class="pagination">`;
     
-    html += `<button class="page-btn ${page <= 1 ? 'disabled' : ''}" onclick="(${onPageChange})(${page - 1})">‹</button>`;
+    html += `<button class="page-btn ${page <= 1 ? 'disabled' : ''}" onclick="(${onPageChange})(${page - 1})">${t.prev || '‹'}</button>`;
     
     const start = Math.max(1, page - 2);
     const end = Math.min(totalPages, page + 2);
@@ -139,8 +141,10 @@ function renderPagination(pagination, containerId, onPageChange) {
         html += `<button class="page-btn" onclick="(${onPageChange})(${totalPages})">${totalPages}</button>`;
     }
     
-    html += `<button class="page-btn ${page >= totalPages ? 'disabled' : ''}" onclick="(${onPageChange})(${page + 1})">›</button>`;
-    html += `<span class="page-info">第 ${page} / ${totalPages} 页，共 ${pagination.total} 条</span>`;
+    html += `<button class="page-btn ${page >= totalPages ? 'disabled' : ''}" onclick="(${onPageChange})(${page + 1})">${t.next || '›'}</button>`;
+    const info = (t.info || '第 {page} / {total} 页，共 {count} 条')
+        .replace('{page}', page).replace('{total}', totalPages).replace('{count}', pagination.total);
+    html += `<span class="page-info">${info}</span>`;
     html += `</div>`;
     
     container.innerHTML = html;

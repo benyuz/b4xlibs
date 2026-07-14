@@ -3,84 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>B4X 资料库导航</title>
+    <title>B4X Library Navigator</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header class="site-header">
-        <div class="logo"><img src="Logo_white.png" alt="B4X" height="40"></div>
-        <h1>📚 B4X 资料库导航</h1>
-        <p class="subtitle">聚合官方与社区维护的 B4X 库资源，一站式检索与浏览</p>
+        <div class="header-top">
+            <div class="logo"><img src="Logo_white.png" alt="B4X" height="40"></div>
+            <button class="lang-btn" id="langBtn" onclick="toggleLanguage()">中文</button>
+        </div>
+        <h1 id="pageTitle">📚 B4X 资料库导航</h1>
+        <p class="subtitle" id="pageSubtitle">聚合官方与社区维护的 B4X 库资源，一站式检索与浏览</p>
     </header>
 
     <main class="container">
         <section class="stats-section">
             <div class="stats-grid" id="statsContainer">
-                <div class="stat-card"><span class="number" id="statTotal">--</span> 总库数</div>
-                <div class="stat-card"><span class="number" id="statOfficial">--</span> 官方库</div>
-                <div class="stat-card"><span class="number" id="statCommunity">--</span> 社区库</div>
-                <div class="stat-card"><span class="number" id="statAuthors">--</span> 作者数</div>
+                <div class="stat-card"><span class="number" id="statTotal">--</span> <span id="labelTotal">总库数</span></div>
+                <div class="stat-card"><span class="number" id="statOfficial">--</span> <span id="labelOfficial">官方库</span></div>
+                <div class="stat-card"><span class="number" id="statCommunity">--</span> <span id="labelCommunity">社区库</span></div>
+                <div class="stat-card"><span class="number" id="statAuthors">--</span> <span id="labelAuthors">作者数</span></div>
             </div>
-            <p class="update-info">📅 数据最后更新：<span id="updateTime">加载中...</span></p>
+            <p class="update-info" id="updateInfo">📅 数据最后更新：<span id="updateTime">加载中...</span></p>
         </section>
 
         <section class="ranking-section">
-            <h2>🏆 贡献者排行榜</h2>
-            <div id="rankingList" class="ranking-list"><div class="loading">加载中...</div></div>
+            <h2 id="rankingTitle">🏆 贡献者排行榜</h2>
+            <div id="rankingList" class="ranking-list"><div class="loading" id="rankingLoading">加载中...</div></div>
         </section>
 
         <section class="entry-section">
             <div class="entry-grid">
                 <a href="official.html" class="entry-card official">
-                    <h3>📚 官方库</h3>
-                    <p>由 Erel 维护的权威 B4X 库列表</p>
+                    <h3 id="officialTitle">📚 官方库</h3>
+                    <p id="officialDesc">由 Erel 维护的权威 B4X 库列表</p>
                     <span class="entry-badge" id="badgeOfficial">加载中...</span>
                 </a>
                 <a href="community.html" class="entry-card community">
-                    <h3>🧩 社区库</h3>
-                    <p>由社区爱好者维护的扩展库列表</p>
+                    <h3 id="communityTitle">🧩 社区库</h3>
+                    <p id="communityDesc">由社区爱好者维护的扩展库列表</p>
                     <span class="entry-badge" id="badgeCommunity">加载中...</span>
                 </a>
             </div>
         </section>
 
         <section class="links-section">
-            <h2>🔗 官方资源</h2>
+            <h2 id="linksTitle">🔗 官方资源</h2>
             <div class="links-grid">
                 <a href="https://www.b4x.com" target="_blank" rel="noopener" class="link-card">
                     <span class="link-icon">🌐</span>
-                    <span class="link-text">B4X 官网</span>
+                    <span class="link-text" id="linkB4X">B4X 官网</span>
                 </a>
                 <a href="https://www.b4x.com/b4a.html" target="_blank" rel="noopener" class="link-card">
                     <span class="link-icon">🤖</span>
-                    <span class="link-text">B4A (Android)</span>
+                    <span class="link-text" id="linkB4A">B4A (Android)</span>
                 </a>
                 <a href="https://www.b4x.com/b4i.html" target="_blank" rel="noopener" class="link-card">
                     <span class="link-icon">🍎</span>
-                    <span class="link-text">B4I (iOS)</span>
+                    <span class="link-text" id="linkB4I">B4I (iOS)</span>
                 </a>
                 <a href="https://www.b4x.com/b4j.html" target="_blank" rel="noopener" class="link-card">
                     <span class="link-icon">🖥️</span>
-                    <span class="link-text">B4J (JavaFX)</span>
+                    <span class="link-text" id="linkB4J">B4J (JavaFX)</span>
                 </a>
                 <a href="https://www.b4x.com/b4r.html" target="_blank" rel="noopener" class="link-card">
                     <span class="link-icon">🔌</span>
-                    <span class="link-text">B4R (IoT)</span>
+                    <span class="link-text" id="linkB4R">B4R (IoT)</span>
                 </a>
                 <a href="https://www.b4x.com/android/forum/" target="_blank" rel="noopener" class="link-card">
                     <span class="link-icon">💬</span>
-                    <span class="link-text">B4X 论坛</span>
+                    <span class="link-text" id="linkForum">B4X 论坛</span>
                 </a>
             </div>
         </section>
     </main>
 
     <footer class="site-footer">
-        <p>♥ B4X 由 Erel 创建 · 数据每日自动更新</p>
-        <p><a href="https://github.com/benyuz/b4xlibs">GitHub 仓库</a></p>
+        <p id="footerCredit">♥ B4X 由 Erel 创建 · 数据每日自动更新</p>
+        <p><a href="https://github.com/benyuz/b4xlibs" id="footerGitHub">GitHub 仓库</a></p>
     </footer>
 
+    <script src="js/locale.js"></script>
     <script>
+    const lang = Locale.detectLanguage();
+    const t = Locale.getLocale(lang);
+
+    function applyLocale() {
+        document.getElementById('langBtn').textContent = t.language[lang === 'zh-CN' ? 'en' : 'zh'];
+        
+        document.getElementById('pageTitle').textContent = t.header.title;
+        document.getElementById('pageSubtitle').textContent = t.header.subtitle;
+        
+        document.getElementById('labelTotal').textContent = t.stats.total;
+        document.getElementById('labelOfficial').textContent = t.stats.official;
+        document.getElementById('labelCommunity').textContent = t.stats.community;
+        document.getElementById('labelAuthors').textContent = t.stats.authors;
+        
+        document.getElementById('updateInfo').innerHTML = t.stats.update + '<span id="updateTime">加载中...</span>';
+        
+        document.getElementById('rankingTitle').textContent = t.ranking.title;
+        document.getElementById('rankingLoading').textContent = t.ranking.loading;
+        
+        document.getElementById('officialTitle').textContent = t.entry.officialTitle;
+        document.getElementById('officialDesc').textContent = t.entry.officialDesc;
+        document.getElementById('communityTitle').textContent = t.entry.communityTitle;
+        document.getElementById('communityDesc').textContent = t.entry.communityDesc;
+        
+        document.getElementById('linksTitle').textContent = t.links.title;
+        document.getElementById('linkB4X').textContent = t.links.b4x;
+        document.getElementById('linkB4A').textContent = t.links.b4a;
+        document.getElementById('linkB4I').textContent = t.links.b4i;
+        document.getElementById('linkB4J').textContent = t.links.b4j;
+        document.getElementById('linkB4R').textContent = t.links.b4r;
+        document.getElementById('linkForum').textContent = t.links.forum;
+        
+        document.getElementById('footerCredit').textContent = t.footer.credit;
+        document.getElementById('footerGitHub').textContent = t.footer.github;
+        
+        document.documentElement.lang = lang;
+    }
+
+    function toggleLanguage() {
+        const newLang = lang === 'zh-CN' ? 'en' : 'zh-CN';
+        Locale.setLanguage(newLang);
+    }
+
+    applyLocale();
+
     fetch('data/stats.json')
         .then(res => {
             if (!res.ok) throw new Error('HTTP ' + res.status);
@@ -92,27 +141,27 @@
             document.getElementById('statCommunity').textContent = stats.community_count || 0;
             document.getElementById('statAuthors').textContent = stats.authors?.total || 0;
             document.getElementById('updateTime').textContent = stats.last_update || '未知';
-            document.getElementById('badgeOfficial').textContent = (stats.official_count || 0) + ' 个库';
-            document.getElementById('badgeCommunity').textContent = (stats.community_count || 0) + ' 个库';
+            document.getElementById('badgeOfficial').textContent = (stats.official_count || 0) + (t.ranking.count || ' 个库');
+            document.getElementById('badgeCommunity').textContent = (stats.community_count || 0) + (t.ranking.count || ' 个库');
             
             const ranking = stats.authors?.ranking || {};
             const entries = Object.entries(ranking);
             const rankingList = document.getElementById('rankingList');
             if (entries.length === 0) {
-                rankingList.innerHTML = '<div>暂无数据</div>';
+                rankingList.innerHTML = '<div>' + t.ranking.noData + '</div>';
             } else {
                 let html = '';
                 entries.forEach(([author, count], index) => {
                     const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : (index + 1) + '.';
-                    html += `<div class="ranking-item"><span class="rank">${medal}</span><span class="author">${author}</span><span class="count">${count} 个库</span></div>`;
+                    html += `<div class="ranking-item"><span class="rank">${medal}</span><span class="author">${author}</span><span class="count">${count}${t.ranking.count || ' 个库'}</span></div>`;
                 });
                 rankingList.innerHTML = html;
             }
         })
         .catch(err => {
             console.error('加载统计失败:', err);
-            document.getElementById('statsContainer').innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#e53e3e;padding:20px;">⚠️ 统计信息加载失败</div>';
-            document.getElementById('updateTime').textContent = '加载失败';
+            document.getElementById('statsContainer').innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#e53e3e;padding:20px;">⚠️ ' + t.empty.failed + '</div>';
+            document.getElementById('updateTime').textContent = t.empty.failed;
         });
     </script>
 </body>
