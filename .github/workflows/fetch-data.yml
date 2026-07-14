@@ -12,23 +12,44 @@ jobs:
   fetch-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: 检出代码
+        uses: actions/checkout@v4
         with:
           ref: main
+          # 确保有足够的提交历史用于推送
+          fetch-depth: 0
+
       - name: 安装PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
+
+      - name: 确保 data 目录存在
+        run: mkdir -p docs/data
+
       - name: 抓取官方库
         run: php fetch/fetch_official.php
+        continue-on-error: false
+
       - name: 抓取社区库
         run: php fetch/fetch_community.php
+        continue-on-error: false
+
       - name: 生成统计
         run: php fetch/generate_stats.php
-      - name: 提交更新
+        continue-on-error: false
+
+      - name: 检查并提交更新
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/data/
-          git diff --cached --quiet || git commit -m "自动更新数据 $(date +'%Y-%m-%d %H:%M:%S')"
-          git push
+          
+          # 检查是否有任何变更
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "没有检测到变更，跳过提交"
+          else
+            git add docs/data/
+            git diff --cached --quiet || git commit -m "自动更新数据 $(date +'%Y-%m-%d %H:%M:%S')"
+            git push
+            echo "✅ 提交并推送成功"
+          fi
