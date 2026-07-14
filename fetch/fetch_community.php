@@ -20,9 +20,13 @@ if ($html === false) {
     exit(1);
 }
 
+if (!mb_check_encoding($html, 'UTF-8')) {
+    $html = mb_convert_encoding($html, 'UTF-8', 'ISO-8859-1');
+}
+
 $dom = new DOMDocument();
 libxml_use_internal_errors(true);
-$dom->loadHTML($html, LIBXML_NOERROR | LIBXML_NOWARNING);
+$dom->loadHTML('<?xml encoding="UTF-8">' . $html, LIBXML_NOERROR | LIBXML_NOWARNING);
 libxml_clear_errors();
 
 $xpath = new DOMXPath($dom);
@@ -68,9 +72,6 @@ if (count($libraries) < 10) {
 
 $json = json_encode($libraries, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 $outputDir = __DIR__ . '/../docs/data/';
-file_put_contents('php://stderr', "📁 输出目录: " . $outputDir . "\n");
-file_put_contents('php://stderr', "📁 脚本目录: " . __DIR__ . "\n");
-file_put_contents('php://stderr', "📁 当前工作目录: " . getcwd() . "\n");
 if (!is_dir($outputDir)) mkdir($outputDir, 0755, true);
 
 file_put_contents($outputDir . 'community.json', $json);
