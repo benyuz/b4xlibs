@@ -3,7 +3,7 @@ const locales = {
         header: {
             title: 'B4X 资源导航',
             subtitle: '聚合官方与社区维护的 B4X 库资源，一站式检索与浏览',
-            pageTitle: 'B4X Resource Navigator'
+            pageTitle: 'B4X 资源导航'
         },
         nav: {
             home: '🏠 首页',
