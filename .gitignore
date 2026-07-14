@@ -6,6 +6,3 @@ error_log
 Thumbs.db
 .vscode/
 .idea/
-docs/data/*.json
-docs/data/*.gz
-!docs/data/.gitkeep
