@@ -1,8 +1,5 @@
 <?php
 $outputDir = __DIR__ . '/../docs/data/';
-file_put_contents('php://stderr', "📁 输出目录: " . $outputDir . "\n");
-file_put_contents('php://stderr', "📁 脚本目录: " . __DIR__ . "\n");
-file_put_contents('php://stderr', "📁 当前工作目录: " . getcwd() . "\n");
 
 $official = [];
 $community = [];
@@ -30,7 +27,7 @@ $stats = [
     'community_count' => count($community),
     'authors' => [
         'total' => count($authors),
-        'ranking' => array_slice($authors, 0, 20)
+        'ranking' => $authors
     ]
 ];
 
