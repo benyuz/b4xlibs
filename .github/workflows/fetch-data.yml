@@ -65,11 +65,12 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
-          if git diff --quiet && git diff --cached --quiet; then
+          git add docs/data/
+          
+          if git diff --cached --quiet; then
             echo "没有检测到变更，跳过提交"
           else
-            git add docs/data/
-            git diff --cached --quiet || git commit -m "自动更新数据 $(date +'%Y-%m-%d %H:%M:%S')"
+            git commit -m "自动更新数据 $(date +'%Y-%m-%d %H:%M:%S')"
             git push
             echo "✅ 提交并推送成功"
           fi
