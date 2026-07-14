@@ -62,7 +62,7 @@
         </section>
     </main>
 
-    <div class="modal-overlay" id="contributorModal" onclick="if(event.target===this)closeContributorModal()">
+    <div class="modal-overlay" id="contributorModal">
         <div class="modal">
             <div class="modal-header">
                 <h3 id="modalTitle">全部贡献者</h3>
@@ -170,10 +170,6 @@
             return `<div class="ranking-item"><span class="rank">${medal}</span><a href="${authorUrl}" target="_blank" rel="noopener" class="author">${author}</a><span class="count">${count}${t.ranking.count || ' 个库'}</span></div>`;
         }).join('');
     }
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeContributorModal();
-    });
 
     applyLocale();
 
