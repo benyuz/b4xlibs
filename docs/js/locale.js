@@ -130,7 +130,7 @@ const locales = {
         footer: {
             credit: '♥ B4X created by Erel · Data updated daily',
             update: '🔄 Last Updated: ',
-            github: '📦 GitHub Repository'
+            github: '🐙 GitHub Repository'
         },
         language: {
             zh: '中文',
