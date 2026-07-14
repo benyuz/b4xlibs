@@ -196,7 +196,7 @@ a:hover { text-decoration:underline; }
 .site-header .logo { flex-shrink:0; display:block; transition:opacity .25s; }
 .site-header .logo:hover { opacity:0.8; }
 .site-header .header-center { flex:1; text-align:center; min-width:0; }
-.site-header h1 { font-size:28px; font-weight:800; letter-spacing:-1px; margin:0 0 4px; background:var(--title-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.site-header h1 { font-size:28px; font-weight:800; letter-spacing:-1px; margin:0 0 4px; color:#ffffff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .site-header .subtitle { color:var(--header-subtitle); font-size:13px; font-weight:400; opacity:0.9; margin:0; }
 
 .header-right { display:flex; align-items:center; gap:16px; }
@@ -249,6 +249,9 @@ a:hover { text-decoration:underline; }
 .ranking-item .rank { font-weight:800; min-width:36px; color:var(--text-secondary); font-size:16px; }
 .ranking-item .author { flex:1; font-weight:600; }
 .ranking-item .count { color:var(--text-tertiary); font-size:13px; font-weight:500; }
+.ranking-list > :nth-child(1) { color:#fff; background:#f6740c; }
+.ranking-list > :nth-child(2) { color:#fff; background:#1b8bff; }
+.ranking-list > :nth-child(3) { color:#fff; background:#2ad0ca; }
 
 .sticky-filter { position:sticky; top:0; z-index:100; background:var(--filter-bg); border-radius:var(--radius-lg); padding:20px 24px; margin-bottom:24px; box-shadow:var(--shadow-lg); border:1px solid var(--border-color); }
 .filter-bar { display:flex; flex-wrap:wrap; align-items:center; gap:14px; }
