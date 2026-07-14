@@ -3,7 +3,9 @@ const locales = {
         header: {
             title: 'B4X 资源导航',
             subtitle: '聚合官方与社区维护的 B4X 库资源，一站式检索与浏览',
-            pageTitle: 'B4X 资源导航'
+            pageTitle: 'B4X 资源导航',
+            officialTitle: '官方库 - B4X 资源导航',
+            communityTitle: '社区资源 - B4X 资源导航'
         },
         nav: {
             home: '🏠 首页',
@@ -21,7 +23,12 @@ const locales = {
             title: '🏆 贡献者排行榜',
             loading: '加载中...',
             noData: '暂无数据',
-            count: '个库'
+            count: '个库',
+            viewAll: '查看全部贡献者',
+            modalTitle: '全部贡献者',
+            modalSearch: '搜索贡献者...',
+            modalClose: '关闭',
+            modalCount: '共 {count} 位贡献者'
         },
         entry: {
             officialTitle: '📚 官方库',
@@ -72,7 +79,9 @@ const locales = {
         header: {
             title: 'B4X Resource Navigator',
             subtitle: 'Aggregate official and community B4X library resources for one-stop browsing',
-            pageTitle: 'B4X Resource Navigator'
+            pageTitle: 'B4X Resource Navigator',
+            officialTitle: 'Official Libraries - B4X Resource Navigator',
+            communityTitle: 'Community Resources - B4X Resource Navigator'
         },
         nav: {
             home: '🏠 Home',
@@ -90,7 +99,12 @@ const locales = {
             title: '🏆 Contributor Ranking',
             loading: 'Loading...',
             noData: 'No data',
-            count: ' libs'
+            count: ' libs',
+            viewAll: 'View All Contributors',
+            modalTitle: 'All Contributors',
+            modalSearch: 'Search contributors...',
+            modalClose: 'Close',
+            modalCount: '{count} contributors in total'
         },
         entry: {
             officialTitle: '📚 Official Libraries',

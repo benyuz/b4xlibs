@@ -56,14 +56,35 @@
                 </div>
             </div>
             <div id="rankingList" class="ranking-list"><div class="loading" id="rankingLoading">加载中...</div></div>
+            <div class="ranking-footer" id="rankingFooter" style="display:none">
+                <button class="ranking-view-all" id="viewAllBtn" onclick="openContributorModal()">👁️ <span id="viewAllText">查看全部贡献者</span></button>
+            </div>
         </section>
     </main>
+
+    <div class="modal-overlay" id="contributorModal" onclick="if(event.target===this)closeContributorModal()">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">全部贡献者</h3>
+                <button class="modal-close" onclick="closeContributorModal()">✕</button>
+            </div>
+            <div class="modal-search">
+                <input type="text" id="modalSearchInput" placeholder="搜索贡献者..." oninput="filterContributors()">
+            </div>
+            <div class="modal-body">
+                <p class="modal-info" id="modalInfo"></p>
+                <div class="modal-list" id="modalList"></div>
+            </div>
+        </div>
+    </div>
 
     <footer class="site-footer">
         <p id="footerCredit">♥ B4X 由 Erel 创建 · 数据每日自动更新</p>
         <p><span id="footerUpdateLabel">🔄 更新时间：</span><span id="updateTime">--</span></p>
         <p><a href="https://github.com/benyuz/b4xlibs" id="footerGitHub"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:4px"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.026A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.295 2.747-1.026 2.747-1.026.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>GitHub 仓库</a></p>
     </footer>
+
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">⬆️</button>
 
     <script src="js/locale.js"></script>
     <script>
@@ -85,6 +106,9 @@
         
         document.getElementById('rankingTitle').textContent = t.ranking.title;
         document.getElementById('rankingLoading').textContent = t.ranking.loading;
+        document.getElementById('viewAllText').textContent = t.ranking.viewAll;
+        document.getElementById('modalTitle').textContent = t.ranking.modalTitle;
+        document.getElementById('modalSearchInput').placeholder = t.ranking.modalSearch;
         
         document.getElementById('footerCredit').textContent = t.footer.credit;
         document.getElementById('footerUpdateLabel').textContent = t.footer.update;
@@ -96,6 +120,59 @@
     function changeLanguage(newLang) {
         Locale.setLanguage(newLang);
     }
+
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.addEventListener('scroll', () => {
+        const btn = document.getElementById('backToTop');
+        if (window.scrollY > 300) {
+            btn.classList.add('show');
+        } else {
+            btn.classList.remove('show');
+        }
+    });
+
+    let allContributors = [];
+
+    function openContributorModal() {
+        document.getElementById('contributorModal').classList.add('show');
+        document.body.style.overflow = 'hidden';
+        renderModalList(allContributors);
+    }
+
+    function closeContributorModal() {
+        document.getElementById('contributorModal').classList.remove('show');
+        document.body.style.overflow = '';
+        document.getElementById('modalSearchInput').value = '';
+    }
+
+    function filterContributors() {
+        const keyword = document.getElementById('modalSearchInput').value.trim().toLowerCase();
+        const filtered = keyword
+            ? allContributors.filter(([author]) => author.toLowerCase().includes(keyword))
+            : allContributors;
+        renderModalList(filtered);
+    }
+
+    function renderModalList(entries) {
+        const info = document.getElementById('modalInfo');
+        const list = document.getElementById('modalList');
+        info.textContent = t.ranking.modalCount.replace('{count}', entries.length);
+        if (entries.length === 0) {
+            list.innerHTML = '<div style="text-align:center;padding:24px;color:var(--text-tertiary);">' + t.ranking.noData + '</div>';
+            return;
+        }
+        list.innerHTML = entries.map(([author, count], index) => {
+            const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : (index + 1) + '.';
+            return `<div class="ranking-item"><span class="rank">${medal}</span><span class="author">${author}</span><span class="count">${count}${t.ranking.count || ' 个库'}</span></div>`;
+        }).join('');
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeContributorModal();
+    });
 
     applyLocale();
 
@@ -110,19 +187,23 @@
             document.getElementById('statTotal').textContent = stats.total_libraries || 0;
             document.getElementById('statAuthors').textContent = stats.authors?.total || 0;
             document.getElementById('updateTime').textContent = stats.last_update || '未知';
-            
+
             const ranking = stats.authors?.ranking || {};
-            const entries = Object.entries(ranking);
+            allContributors = Object.entries(ranking).sort((a, b) => b[1] - a[1]);
+            const top20 = allContributors.slice(0, 20);
             const rankingList = document.getElementById('rankingList');
-            if (entries.length === 0) {
+            if (top20.length === 0) {
                 rankingList.innerHTML = '<div>' + t.ranking.noData + '</div>';
             } else {
                 let html = '';
-                entries.forEach(([author, count], index) => {
+                top20.forEach(([author, count], index) => {
                     const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : (index + 1) + '.';
                     html += `<div class="ranking-item"><span class="rank">${medal}</span><span class="author">${author}</span><span class="count">${count}${t.ranking.count || ' 个库'}</span></div>`;
                 });
                 rankingList.innerHTML = html;
+            }
+            if (allContributors.length > 20) {
+                document.getElementById('rankingFooter').style.display = '';
             }
         })
         .catch(err => {
