@@ -60,7 +60,7 @@
 
     <footer class="site-footer">
         <p id="footerCredit">♥ B4X 由 Erel 创建 · 数据每日自动更新</p>
-        <p id="footerUpdate">🔄 更新时间：<span id="updateTime">--</span></p>
+        <p><span id="footerUpdateLabel">🔄 更新时间：</span><span id="updateTime">--</span></p>
         <p><a href="https://github.com/benyuz/b4xlibs" id="footerGitHub">GitHub 仓库</a></p>
     </footer>
 
@@ -86,7 +86,7 @@
         document.getElementById('rankingLoading').textContent = t.ranking.loading;
         
         document.getElementById('footerCredit').textContent = t.footer.credit;
-        document.getElementById('footerUpdate').textContent = t.footer.update;
+        document.getElementById('footerUpdateLabel').textContent = t.footer.update;
         document.getElementById('footerGitHub').textContent = t.footer.github;
         
         document.documentElement.lang = lang;
