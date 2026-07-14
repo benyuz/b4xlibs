@@ -141,7 +141,16 @@
     async function loadData() {
         const container = document.getElementById('libraryList');
         container.innerHTML = '<div class="loading">' + t.empty.loading + '</div>';
-        const data = await B4XLib.loadJSON('data/official.json');
+        
+        const [data, stats] = await Promise.all([
+            B4XLib.loadJSON('data/official.json'),
+            B4XLib.loadJSON('data/stats.json')
+        ]);
+        
+        if (stats && stats.last_update) {
+            document.getElementById('updateTime').textContent = stats.last_update;
+        }
+        
         if (!data || data.length === 0) {
             container.innerHTML = '<div class="empty">' + t.empty.noData + '</div>';
             return;

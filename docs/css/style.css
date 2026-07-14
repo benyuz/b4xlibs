@@ -252,6 +252,15 @@ a:hover { text-decoration:underline; }
 .ranking-list > :nth-child(1) { color:#fff; background:#f6740c; }
 .ranking-list > :nth-child(2) { color:#fff; background:#1b8bff; }
 .ranking-list > :nth-child(3) { color:#fff; background:#2ad0ca; }
+.ranking-list > :nth-child(1) .rank,
+.ranking-list > :nth-child(2) .rank,
+.ranking-list > :nth-child(3) .rank { color:#fff; font-size:20px; }
+.ranking-list > :nth-child(1) .author,
+.ranking-list > :nth-child(2) .author,
+.ranking-list > :nth-child(3) .author { color:#fff; }
+.ranking-list > :nth-child(1) .count,
+.ranking-list > :nth-child(2) .count,
+.ranking-list > :nth-child(3) .count { color:rgba(255,255,255,0.85); }
 
 .sticky-filter { position:sticky; top:0; z-index:100; background:var(--filter-bg); border-radius:var(--radius-lg); padding:20px 24px; margin-bottom:24px; box-shadow:var(--shadow-lg); border:1px solid var(--border-color); }
 .filter-bar { display:flex; flex-wrap:wrap; align-items:center; gap:14px; }
