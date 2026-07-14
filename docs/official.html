@@ -32,6 +32,7 @@
         </div>
         
         <div id="libraryList" class="library-list"><div class="loading">⏳ 加载数据中...</div></div>
+        <div id="pagination" class="pagination-container"></div>
     </main>
 
     <footer class="site-footer"><p>♥ B4X 资料库 · 数据每日自动更新</p></footer>
@@ -40,24 +41,23 @@
     <script>
     let allData = [];
     let currentPlatform = 'ALL';
+    let currentPage = 1;
+    const PAGE_SIZE = 20;
 
     function updateUrl() {
         const keyword = document.getElementById('searchInput').value.trim();
         const params = new URLSearchParams();
         if (keyword) params.set('keyword', keyword);
         if (currentPlatform !== 'ALL') params.set('platform', currentPlatform);
+        if (currentPage > 1) params.set('page', currentPage);
         const newUrl = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
         window.history.replaceState({}, '', newUrl);
     }
 
     function applyFilters() {
+        currentPage = 1;
         updateUrl();
-        const keyword = document.getElementById('searchInput').value.trim();
-        const filtered = B4XLib.filterLibraries(allData, {
-            keyword: keyword,
-            platform: currentPlatform
-        });
-        B4XLib.renderLibraries(filtered, 'libraryList');
+        render();
     }
 
     function setPlatform(platform) {
@@ -66,6 +66,25 @@
             btn.classList.toggle('active', btn.dataset.platform === platform);
         });
         applyFilters();
+    }
+
+    function goToPage(page) {
+        currentPage = page;
+        updateUrl();
+        render();
+    }
+
+    function render() {
+        const keyword = document.getElementById('searchInput').value.trim();
+        const filtered = B4XLib.filterLibraries(allData, {
+            keyword: keyword,
+            platform: currentPlatform
+        });
+        const sorted = B4XLib.sortByDate(filtered, 'desc');
+        const pagination = B4XLib.paginate(sorted, currentPage, PAGE_SIZE);
+        
+        B4XLib.renderLibraries(pagination.data, 'libraryList');
+        B4XLib.renderPagination(pagination, 'pagination', goToPage);
     }
 
     async function loadData() {
@@ -81,6 +100,7 @@
         const params = new URLSearchParams(window.location.search);
         const keyword = params.get('keyword') || '';
         const platform = params.get('platform') || 'ALL';
+        currentPage = parseInt(params.get('page')) || 1;
         if (keyword) document.getElementById('searchInput').value = keyword;
         setPlatform(platform);
     }

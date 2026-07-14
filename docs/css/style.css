@@ -73,6 +73,15 @@ a:hover { text-decoration:underline; }
 .empty, .error { text-align:center; padding:40px; font-size:16px; }
 .error { color:#e53e3e; }
 
+.pagination-container { margin-top:24px; }
+.pagination { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:6px; }
+.page-btn { min-width:36px; height:36px; padding:0 10px; border:1px solid #e2e8f0; border-radius:8px; background:#fff; font-size:14px; cursor:pointer; transition:all .2s; color:#4a5568; display:flex; align-items:center; justify-content:center; }
+.page-btn:hover:not(.disabled) { background:#edf2f7; border-color:#cbd5e0; }
+.page-btn.active { background:#2b6cb0; color:#fff; border-color:#2b6cb0; }
+.page-btn.disabled { opacity:0.4; cursor:not-allowed; }
+.page-ellipsis { padding:0 8px; color:#718096; font-size:14px; }
+.page-info { margin-left:12px; padding-left:12px; border-left:1px solid #e2e8f0; color:#718096; font-size:14px; }
+
 @media (max-width:640px) {
     .site-header h1 { font-size:20px; }
     .stats-grid { grid-template-columns:repeat(2,1fr); }

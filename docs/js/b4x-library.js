@@ -30,6 +30,23 @@ function getUrlParams() {
     return result;
 }
 
+function parseDate(dateStr) {
+    if (!dateStr) return new Date(0);
+    const parts = dateStr.match(/(\d{4})[-.\/](\d{1,2})[-.\/](\d{1,2})/);
+    if (parts) {
+        return new Date(parseInt(parts[1]), parseInt(parts[2]) - 1, parseInt(parts[3]));
+    }
+    return new Date(dateStr) || new Date(0);
+}
+
+function sortByDate(libraries, order = 'desc') {
+    return [...libraries].sort((a, b) => {
+        const dateA = parseDate(a.date);
+        const dateB = parseDate(b.date);
+        return order === 'desc' ? dateB - dateA : dateA - dateB;
+    });
+}
+
 function filterLibraries(libraries, filters) {
     return libraries.filter(lib => {
         if (filters.keyword) {
@@ -44,6 +61,18 @@ function filterLibraries(libraries, filters) {
         }
         return true;
     });
+}
+
+function paginate(libraries, page, pageSize) {
+    const start = (page - 1) * pageSize;
+    const end = start + pageSize;
+    return {
+        data: libraries.slice(start, end),
+        total: libraries.length,
+        page: page,
+        pageSize: pageSize,
+        totalPages: Math.ceil(libraries.length / pageSize)
+    };
 }
 
 function renderLibraries(libraries, containerId) {
@@ -80,9 +109,50 @@ function renderLibraries(libraries, containerId) {
     container.innerHTML = html;
 }
 
+function renderPagination(pagination, containerId, onPageChange) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    if (pagination.totalPages <= 1) {
+        container.innerHTML = '';
+        return;
+    }
+    
+    const { page, totalPages } = pagination;
+    let html = `<div class="pagination">`;
+    
+    html += `<button class="page-btn ${page <= 1 ? 'disabled' : ''}" onclick="(${onPageChange})(${page - 1})">‹</button>`;
+    
+    const start = Math.max(1, page - 2);
+    const end = Math.min(totalPages, page + 2);
+    
+    if (start > 1) {
+        html += `<button class="page-btn" onclick="(${onPageChange})(1)">1</button>`;
+        if (start > 2) html += `<span class="page-ellipsis">...</span>`;
+    }
+    
+    for (let i = start; i <= end; i++) {
+        html += `<button class="page-btn ${i === page ? 'active' : ''}" onclick="(${onPageChange})(${i})">${i}</button>`;
+    }
+    
+    if (end < totalPages) {
+        if (end < totalPages - 1) html += `<span class="page-ellipsis">...</span>`;
+        html += `<button class="page-btn" onclick="(${onPageChange})(${totalPages})">${totalPages}</button>`;
+    }
+    
+    html += `<button class="page-btn ${page >= totalPages ? 'disabled' : ''}" onclick="(${onPageChange})(${page + 1})">›</button>`;
+    html += `<span class="page-info">第 ${page} / ${totalPages} 页，共 ${pagination.total} 条</span>`;
+    html += `</div>`;
+    
+    container.innerHTML = html;
+}
+
 window.B4XLib = {
     loadGzippedJSON: loadGzippedJSON,
     getUrlParams: getUrlParams,
+    parseDate: parseDate,
+    sortByDate: sortByDate,
     filterLibraries: filterLibraries,
-    renderLibraries: renderLibraries
+    paginate: paginate,
+    renderLibraries: renderLibraries,
+    renderPagination: renderPagination
 };
