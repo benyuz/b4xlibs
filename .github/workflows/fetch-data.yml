@@ -12,10 +12,9 @@ jobs:
   fetch-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: main
-          persist-credentials: false
       - name: 安装PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -32,4 +31,4 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add docs/data/
           git diff --cached --quiet || git commit -m "自动更新数据 $(date +'%Y-%m-%d %H:%M:%S')"
-          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          git push
