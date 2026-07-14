@@ -71,11 +71,6 @@ file_put_contents('php://stderr', "📁 脚本目录: " . __DIR__ . "\n");
 file_put_contents('php://stderr', "📁 当前工作目录: " . getcwd() . "\n");   
 if (!is_dir($outputDir)) mkdir($outputDir, 0755, true);
 
-$existingFile = $outputDir . 'official.json';
-if (file_exists($existingFile) && file_get_contents($existingFile) === $json) {
-    file_put_contents('php://stderr', "✅ 官方库无变化，跳过写入\n");
-} else {
-    file_put_contents($existingFile, $json);
-    file_put_contents('php://stderr', "✅ 官方库更新成功，共 " . count($libraries) . " 条\n");
-}
+file_put_contents($outputDir . 'official.json', $json);
+file_put_contents('php://stderr', "✅ 官方库更新成功，共 " . count($libraries) . " 条\n");
 ?>
