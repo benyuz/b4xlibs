@@ -8,8 +8,8 @@ A comprehensive navigation platform for B4X libraries, aggregating official and 
 
 ## Features
 
-- **📚 Official Libraries**: Browse authoritative B4X libraries maintained by Erel
-- **🧩 Community Resources**: Explore extended libraries maintained by community enthusiasts
+- **📚 Official Index**: Browse B4X library index curated by Erel
+- **🧩 Community Collection**: Explore resources maintained by community enthusiasts
 - **🏆 Contributor Ranking**: See top contributors and their library counts
 - **🔍 Search & Filter**: Search libraries by name, description, or author; filter by platform (B4A/B4I/B4J/B4R)
 - **📅 Daily Updates**: Data is automatically fetched and updated daily via GitHub Actions
@@ -20,8 +20,8 @@ A comprehensive navigation platform for B4X libraries, aggregating official and 
 
 ## Data Sources
 
-- **Official Libraries**: Scraped from [B4X Google Sheets](https://www.b4x.com/android/forum/pages/results/?query=b4x+library)
-- **Community Libraries**: Scraped from community forum posts
+- **Official Index**: Scraped from [B4X Google Sheets](https://www.b4x.com/android/forum/pages/results/?query=b4x+library)
+- **Community Collection**: Scraped from community forum posts
 
 ---
 
@@ -77,8 +77,8 @@ MIT License
 
 ## 功能特性
 
-- **📚 官方库**: 浏览由 Erel 维护的权威 B4X 库
-- **🧩 社区资源**: 探索由社区爱好者维护的扩展库
+- **📚 官方索引**: 浏览由 Erel 整理维护的 B4X 库索引
+- **🧩 社区集合**: 探索由社区爱好者维护的资源集合
 - **🏆 贡献者排行榜**: 查看顶级贡献者及其库数量
 - **🔍 搜索与筛选**: 按名称、描述或作者搜索；按平台筛选（B4A/B4I/B4J/B4R）
 - **📅 每日更新**: 数据通过 GitHub Actions 自动获取和更新
@@ -89,8 +89,8 @@ MIT License
 
 ## 数据来源
 
-- **官方库**: 从 [B4X Google Sheets](https://www.b4x.com/android/forum/pages/results/?query=b4x+library) 抓取
-- **社区库**: 从社区论坛帖子抓取
+- **官方索引**: 从 [B4X Google Sheets](https://www.b4x.com/android/forum/pages/results/?query=b4x+library) 抓取
+- **社区集合**: 从社区论坛帖子抓取
 
 ---
 

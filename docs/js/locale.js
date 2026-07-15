@@ -2,20 +2,20 @@ const locales = {
     'zh-CN': {
         header: {
             title: 'B4X 资源导航',
-            subtitle: '聚合官方与社区维护的 B4X 库资源，一站式检索与浏览',
+            subtitle: '聚合官方索引与社区集合的 B4X 库资源，一站式检索与浏览',
             pageTitle: 'B4X 资源导航',
-            officialTitle: '官方库 - B4X 资源导航',
-            communityTitle: '社区资源 - B4X 资源导航'
+            officialTitle: '官方索引 - B4X 资源导航',
+            communityTitle: '社区集合 - B4X 资源导航'
         },
         nav: {
             home: '🏠 首页',
-            official: '📚 官方库',
-            community: '🧩 社区库'
+            official: '📚 官方索引',
+            community: '🧩 社区集合'
         },
         stats: {
             total: '总库数',
-            official: '官方库',
-            community: '社区库',
+            official: '官方索引',
+            community: '社区集合',
             authors: '作者数',
             update: '数据最后更新：'
         },
@@ -31,10 +31,10 @@ const locales = {
             modalCount: '共 {count} 位贡献者'
         },
         entry: {
-            officialTitle: '📚 官方库',
-            officialDesc: '由 Erel 维护的权威 B4X 库列表',
-            communityTitle: '🧩 社区资源',
-            communityDesc: '由社区爱好者维护的资源列表',
+            officialTitle: '📚 官方索引',
+            officialDesc: '由 Erel 整理维护的 B4X 库索引',
+            communityTitle: '🧩 社区集合',
+            communityDesc: '由社区爱好者维护的资源集合',
             viewAll: '→ 浏览全部'
         },
         links: {
@@ -78,20 +78,20 @@ const locales = {
     'en': {
         header: {
             title: 'B4X Resource Navigator',
-            subtitle: 'Aggregate official and community B4X library resources for one-stop browsing',
+            subtitle: 'Aggregate official index and community collection B4X library resources for one-stop browsing',
             pageTitle: 'B4X Resource Navigator',
-            officialTitle: 'Official Libraries - B4X Resource Navigator',
-            communityTitle: 'Community Resources - B4X Resource Navigator'
+            officialTitle: 'Official Index - B4X Resource Navigator',
+            communityTitle: 'Community Collection - B4X Resource Navigator'
         },
         nav: {
             home: '🏠 Home',
-            official: '📚 Official Libs',
-            community: '🧩 Community Libs'
+            official: '📚 Official Index',
+            community: '🧩 Community Collection'
         },
         stats: {
             total: 'Total Libraries',
-            official: 'Official',
-            community: 'Community',
+            official: 'Official Index',
+            community: 'Community Collection',
             authors: 'Authors',
             update: 'Last Updated: '
         },
@@ -107,9 +107,9 @@ const locales = {
             modalCount: '{count} contributors in total'
         },
         entry: {
-            officialTitle: '📚 Official Libraries',
-            officialDesc: 'Authoritative B4X libraries maintained by Erel',
-            communityTitle: '🧩 Community Resources',
+            officialTitle: '📚 Official Index',
+            officialDesc: 'B4X library index curated by Erel',
+            communityTitle: '🧩 Community Collection',
             communityDesc: 'Resources maintained by community enthusiasts',
             viewAll: '→ View All'
         },
