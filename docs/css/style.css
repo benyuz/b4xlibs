@@ -291,7 +291,7 @@ a:hover { text-decoration:underline; }
 .tag-B4J { background:var(--tag-B4J-bg); color:var(--tag-B4J-text); }
 .tag-B4R { background:var(--tag-B4R-bg); color:var(--tag-B4R-text); }
 .card-desc { font-size:14px; color:var(--text-secondary); margin:8px 0 12px; padding-left:16px; border-left:3px solid var(--border-color); line-height:1.6; }
-.card-footer { font-size:13px; color:var(--text-tertiary); display:flex; flex-wrap:wrap; gap:8px 20px; }
+.card-footer { font-size:13px; color:var(--text-tertiary); display:flex; flex-wrap:wrap; gap:4px; }
 .card-footer .card-author { color:var(--accent-primary); }
 .card-author-link { color:var(--accent-primary); text-decoration:none; font-weight:600; }
 .card-author-link:hover { text-decoration:underline; }
