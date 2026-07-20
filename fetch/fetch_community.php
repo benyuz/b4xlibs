@@ -51,8 +51,8 @@ for ($i = 3; $i < $tableRows->length; $i++) {
         $data[] = extractCellText($dom, $cell);
     }
     
-    if (empty($data[3])) continue;
-    if (strtolower($data[1] ?? '') !== 'library') continue;
+    if (empty($data[3])) continue;//过滤空行
+    if (empty($data[1])) continue;//过滤空行
     
     $b4what = strtolower($data[0] ?? '');
     $tags = [];
@@ -65,6 +65,7 @@ for ($i = 3; $i < $tableRows->length; $i++) {
     $libraries[] = [
         'name' => trim($data[3] ?? ''),
         'desc' => trim($data[8] ?? ''),
+        'type' => trim($data[1] ?? ''),  // ← 新增，保存类型
         'tags' => $tags,
         'version' => trim(preg_replace('/^[vV]/', '', $data[5] ?? '')),
         'date' => trim($data[6] ?? ''),
