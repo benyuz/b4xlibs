@@ -169,13 +169,13 @@
     async function loadData() {
         const container = document.getElementById('libraryList');
         container.innerHTML = '<div class="loading">' + t.empty.loading + '</div>';
-        const [data, stats] = await Promise.all([
-            B4XLib.loadJSON('data/community.json'),
-            B4XLib.loadJSON('data/stats.json')
-        ]);
+        // stats.json 先加载（~200字节），立即更新页脚时间
+        const stats = await B4XLib.loadJSON('data/stats.json');
         if (stats && stats.last_update) {
             document.getElementById('updateTime').textContent = stats.last_update;
         }
+        // 然后加载库数据
+        const data = await B4XLib.loadJSON('data/community.json');
         if (!data || data.length === 0) {
             container.innerHTML = '<div class="empty">' + t.empty.noData + '</div>';
             return;
