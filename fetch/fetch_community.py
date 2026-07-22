@@ -6,6 +6,7 @@ import os
 import sys
 import urllib.request
 from html.parser import HTMLParser
+import codecs
 
 HTML_URL = 'https://www.dropbox.com/s/4punyxbwek8oc8o/b4xgoodies.html?dl=1'
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -80,6 +81,18 @@ class _TableParser(HTMLParser):
             self._text += data
 
 
+def _fix_mojibake(text: str) -> str:
+    """修复 UTF-8 字节被当作 Latin-1 解码导致的乱码（如 Ã¡ → á）。"""
+    try:
+        raw = text.encode('latin-1')
+        fixed = raw.decode('utf-8')
+        if fixed != text and fixed.isprintable():
+            return fixed
+    except (UnicodeEncodeError, UnicodeDecodeError):
+        pass
+    return text
+
+
 def parse_table(html_text: str) -> list[dict]:
     parser = _TableParser()
     parser.feed(html_text)
@@ -105,13 +118,13 @@ def parse_table(html_text: str) -> list[dict]:
             version = version[1:]
 
         libraries.append({
-            'name': name,
-            'desc': cells[8] if len(cells) > 8 else '',
+            'name': _fix_mojibake(name),
+            'desc': _fix_mojibake(cells[8] if len(cells) > 8 else ''),
             'type': type_val,
             'tags': tags,
             'version': version,
             'date': cells[6] if len(cells) > 6 else '',
-            'author': cells[4] if len(cells) > 4 else '',
+            'author': _fix_mojibake(cells[4] if len(cells) > 4 else ''),
             'link': cells[9] if len(cells) > 9 else '',
         })
 

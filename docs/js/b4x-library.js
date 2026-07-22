@@ -37,7 +37,19 @@ function sortByDate(libraries, order = 'desc') {
 
 function filterLibraries(libraries, filters) {
     return libraries.filter(lib => {
+        // 精确作者过滤（优先级最高）
+        if (filters.author) {
+            if (!lib.author || lib.author.toLowerCase() !== filters.author.toLowerCase()) {
+                return false;
+            }
+        }
         if (filters.keyword) {
+            const kw = filters.keyword.toLowerCase();
+            const matchName = lib.name && lib.name.toLowerCase().includes(kw);
+            const matchDesc = lib.desc && lib.desc.toLowerCase().includes(kw);
+            const matchAuthor = lib.author && lib.author.toLowerCase().includes(kw);
+            if (!matchName && !matchDesc && !matchAuthor) return false;
+        }
             const kw = filters.keyword.toLowerCase();
             const matchName = lib.name && lib.name.toLowerCase().includes(kw);
             const matchDesc = lib.desc && lib.desc.toLowerCase().includes(kw);
@@ -78,7 +90,7 @@ function renderLibraries(libraries, containerId, locale) {
         const link = lib.link || '#';
         const versionHtml = lib.version ? 'v' + lib.version : '';
         const dateHtml = lib.date || '';
-        const authorHtml = lib.author ? `<a href="?keyword=${encodeURIComponent(lib.author)}" class="card-author-link">@${lib.author}</a>` : '';
+        const authorHtml = lib.author ? `<a href="?author=${encodeURIComponent(lib.author)}" class="card-author-link">@${lib.author}</a>` : '';
         
         html += `
             <article class="library-card">

@@ -78,6 +78,7 @@
     
     let allData = [];
     let currentPlatform = 'ALL';
+    let currentAuthor = '';
     let currentPage = 1;
     const PAGE_SIZE = 20;
 
@@ -124,6 +125,7 @@
         const params = new URLSearchParams();
         if (keyword) params.set('keyword', keyword);
         if (currentPlatform !== 'ALL') params.set('platform', currentPlatform);
+        if (currentAuthor) params.set('author', currentAuthor);
         if (currentPage > 1) params.set('page', currentPage);
         const newUrl = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
         window.history.replaceState({}, '', newUrl);
@@ -131,6 +133,7 @@
 
     function applyFilters() {
         currentPage = 1;
+        currentAuthor = '';
         updateUrl();
         render();
     }
@@ -153,6 +156,7 @@
         const keyword = document.getElementById('searchInput').value.trim();
         const filtered = B4XLib.filterLibraries(allData, {
             keyword: keyword,
+            author: currentAuthor,
             platform: currentPlatform
         });
         const sorted = B4XLib.sortByDate(filtered, 'desc');
@@ -180,6 +184,7 @@
         
         const params = new URLSearchParams(window.location.search);
         const keyword = params.get('keyword') || '';
+        currentAuthor = params.get('author') || '';
         const platform = params.get('platform') || 'ALL';
         currentPage = parseInt(params.get('page')) || 1;
         if (keyword) document.getElementById('searchInput').value = keyword;
