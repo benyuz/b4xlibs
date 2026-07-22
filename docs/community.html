@@ -60,7 +60,7 @@
         
         <div id="authorBadge" class="author-badge" style="display:none">
             <span id="authorBadgeText"></span>
-            <button class="badge-close" onclick="clearAuthor()" title="清除作者筛选">✕</button>
+            <button class="badge-close" onclick="clearAuthor()" >✕</button>
         </div>
         
         <div id="libraryList" class="library-list"><div class="loading" id="listLoading">⏳ 加载数据中...</div></div>
@@ -176,7 +176,9 @@
         const badge = document.getElementById('authorBadge');
         if (currentAuthor) {
             badge.style.display = 'flex';
+            const lang = localStorage.getItem('b4x-lang') || navigator.language || '';
             document.getElementById('authorBadgeText').textContent = (lang.startsWith('zh') ? '作者: ' : 'Author: ') + currentAuthor;
+            document.getElementById('badgeCloseBtn').title = lang.startsWith('zh') ? '清除作者筛选' : 'Clear author filter';
         } else {
             badge.style.display = 'none';
         }
