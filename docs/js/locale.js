@@ -48,6 +48,7 @@ const locales = {
         },
         filter: {
             placeholder: '🔍 搜索库名、描述或作者...',
+            author: '作者: ',
             all: '全部',
             b4a: 'B4A',
             b4i: 'B4I',
@@ -124,6 +125,7 @@ const locales = {
         },
         filter: {
             placeholder: '🔍 Search by name, description or author...',
+            author: 'Author: ',
             all: 'All',
             b4a: 'B4A',
             b4i: 'B4I',
