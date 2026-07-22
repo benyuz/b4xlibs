@@ -272,7 +272,6 @@ a:hover { text-decoration:underline; }
 .filter-bar input { flex:1; min-width:220px; padding:12px 20px; border:1.5px solid var(--border-color); border-radius:var(--radius-md); font-size:14px; outline:none; transition:all .25s; background:var(--bg-input); color:var(--text-primary); -webkit-appearance:none; appearance:none; }
 .filter-bar input:focus { border-color:var(--accent-primary); background:var(--bg-card); box-shadow:0 0 0 3px rgba(59,130,246,0.1); }
 .filter-bar input::placeholder { color:var(--text-tertiary); }
-.filter-bar input[type="search"]::-webkit-search-cancel-button:hover { opacity:0.6; }
 .filter-tags { display:flex; flex-wrap:wrap; gap:10px; }
 .filter-btn { padding:8px 18px; border:1.5px solid var(--filter-btn-border); border-radius:var(--radius-full); background:var(--filter-btn-bg); font-size:13px; font-weight:600; cursor:pointer; transition:all .25s; color:var(--filter-btn-text); }
 .filter-btn:hover { background:var(--filter-btn-hover-bg); border-color:var(--filter-btn-hover-border); }
