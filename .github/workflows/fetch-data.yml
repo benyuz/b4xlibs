@@ -18,47 +18,25 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: 安装PHP
-        uses: shivammathur/setup-php@v2
+      - name: 设置 Python
+        uses: actions/setup-python@v5
         with:
-          php-version: '8.2'
+          python-version: '3.12'
 
       - name: 确保 data 目录存在
         run: mkdir -p docs/data
 
       - name: 抓取官方库
-        run: php fetch/fetch_official.php
+        run: python fetch/fetch_official.py
         continue-on-error: true
 
       - name: 抓取社区库
-        run: php fetch/fetch_community.php
+        run: python fetch/fetch_community.py
         continue-on-error: true
 
       - name: 生成统计
-        run: php fetch/generate_stats.php
+        run: python fetch/generate_stats.py
         continue-on-error: true
-
-      - name: 调试 - 查找文件位置
-        run: |
-          echo "=== 当前目录 ==="
-          pwd
-          echo ""
-          echo "=== 查找所有 data 目录 ==="
-          find . -type d -name "data" 2>/dev/null
-          echo ""
-          echo "=== 查找所有 .json 文件（排除 .git） ==="
-          find . -name "*.json" -not -path "*/.git/*" 2>/dev/null
-          echo ""
-          echo "=== 查找所有 .gz 文件（排除 .git） ==="
-          find . -name "*.gz" -not -path "*/.git/*" 2>/dev/null
-          echo ""
-          echo "=== docs/data/ 目录内容 ==="
-          ls -la docs/data/ 2>/dev/null || echo "docs/data/ 不存在"
-          echo ""
-          echo "=== 检查 .gitignore 是否忽略了这些文件 ==="
-          git check-ignore docs/data/official.json || echo "✅ official.json 未被忽略"
-          git check-ignore docs/data/community.json || echo "✅ community.json 未被忽略"
-          git check-ignore docs/data/stats.json || echo "✅ stats.json 未被忽略"
 
       - name: 检查并提交更新
         run: |
