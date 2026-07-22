@@ -50,12 +50,6 @@ function filterLibraries(libraries, filters) {
             const matchAuthor = lib.author && lib.author.toLowerCase().includes(kw);
             if (!matchName && !matchDesc && !matchAuthor) return false;
         }
-            const kw = filters.keyword.toLowerCase();
-            const matchName = lib.name && lib.name.toLowerCase().includes(kw);
-            const matchDesc = lib.desc && lib.desc.toLowerCase().includes(kw);
-            const matchAuthor = lib.author && lib.author.toLowerCase().includes(kw);
-            if (!matchName && !matchDesc && !matchAuthor) return false;
-        }
         if (filters.platform && filters.platform !== 'ALL') {
             if (!lib.tags || !lib.tags.includes(filters.platform)) return false;
         }
