@@ -38,10 +38,10 @@ b4xlibs/
 │   │   ├── b4x-library.js  # Core library rendering logic
 │   │   └── locale.js       # Bilingual translation config
 │   └── data/               # JSON data files (auto-generated)
-├── fetch/                  # PHP fetch scripts
-│   ├── fetch_official.php  # Fetch official libraries
-│   ├── fetch_community.php # Fetch community libraries
-│   └── generate_stats.php  # Generate statistics
+├── fetch/                  # Python fetch scripts
+│   ├── fetch_official.py   # Fetch official libraries
+│   ├── fetch_community.py  # Fetch community libraries
+│   └── generate_stats.py   # Generate statistics
 └── .github/workflows/
     └── fetch-data.yml      # Daily data fetch workflow
 ```
