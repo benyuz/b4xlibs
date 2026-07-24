@@ -84,12 +84,12 @@ function renderLibraries(libraries, containerId, locale) {
         const link = lib.link || '#';
         const versionHtml = lib.version ? 'v' + lib.version : '';
         const dateHtml = lib.date || '';
-        const authorHtml = lib.author ? `<a href="?author=${encodeURIComponent(lib.author)}" class="card-author-link">@${lib.author}</a>` : '';
+        const authorHtml = lib.author ? `<a href="?author=${encodeURIComponent(lib.author)}" class="card-author-link" translate="no">@${lib.author}</a>` : '';
         
         html += `
-            <article class="library-card" translate="no">
+            <article class="library-card">
                 <div class="card-header">
-                    <h5 class="card-title"><a href="${link}" target="_blank" rel="noopener">${lib.name}</a></h5>
+                    <h5 class="card-title"><a href="${link}" target="_blank" rel="noopener" translate="no">${lib.name}</a></h5>
                     <div class="card-tags">${tagsHtml}</div>
                 </div>
                 ${lib.desc ? `<blockquote class="card-desc">${lib.desc}</blockquote>` : ''}
