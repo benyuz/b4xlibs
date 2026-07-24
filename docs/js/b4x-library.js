@@ -87,7 +87,7 @@ function renderLibraries(libraries, containerId, locale) {
         const authorHtml = lib.author ? `<a href="?author=${encodeURIComponent(lib.author)}" class="card-author-link">@${lib.author}</a>` : '';
         
         html += `
-            <article class="library-card">
+            <article class="library-card" translate="no">
                 <div class="card-header">
                     <h5 class="card-title"><a href="${link}" target="_blank" rel="noopener">${lib.name}</a></h5>
                     <div class="card-tags">${tagsHtml}</div>
